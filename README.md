@@ -1,0 +1,2 @@
+# Ohtu-miniprojekti
+Pieni ryhmätyö
