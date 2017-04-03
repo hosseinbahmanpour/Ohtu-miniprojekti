@@ -8,9 +8,17 @@ buildscript {
 }
 
 apply plugin: 'java'
+apply plugin: 'jacoco'
+apply plugin: 'checkstyle'
 apply plugin: 'application'
 apply plugin: 'org.springframework.boot'
 
+jacocoTestReport {
+  reports {
+    xml.enabled = true
+    html.enabled = true
+  }
+}
 
 jar {
     baseName = 'gs-serving-web-content'
