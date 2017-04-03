@@ -9,8 +9,6 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'application'
-apply plugin: 'eclipse'
-apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 
 jar {
@@ -31,4 +29,4 @@ dependencies {
     testCompile("junit:junit")
 }
 
-mainClassName = "hello.Application"
+mainClassName = "main.Application"
