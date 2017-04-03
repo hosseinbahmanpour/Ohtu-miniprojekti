@@ -1,0 +1,14 @@
+language: java
+
+#Viikon 2 tehtävistä
+#after_success:
+#  - gradle jacocoTestReport coveralls
+
+#Travisin ohjeiden mukaan Gradle tarvitsee seuraavat pätkät sen cache-systeemin takia:
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
