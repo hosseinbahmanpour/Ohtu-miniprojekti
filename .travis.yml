@@ -1,7 +1,7 @@
 language: java
 
-jdk:
-  - openjdk7
+#jdk:
+#  - openjdk7
 
 #Viikon 2 tehtävistä
 #after_success:
