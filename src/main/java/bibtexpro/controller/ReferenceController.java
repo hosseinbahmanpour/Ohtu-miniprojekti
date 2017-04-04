@@ -1,13 +1,9 @@
 package bibtexpro.controller;
 
 import bibtexpro.domain.Reference;
-<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-=======
-import java.util.HashMap;
->>>>>>> 2373bfef2cfc72073613469c98687340672c129e
 import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
