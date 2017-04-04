@@ -1,0 +1,12 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>BibTeX PRO</title>
+</head>
+<body>
+    <div th:each="reference : ${references}">
+        <span th:text="${reference.type}">Type</span>
+        <span th:text="${reference.id}">id</span>
+    </div>
+</body>
+</html>

@@ -31,7 +31,12 @@ public class ReferenceController {
         references.add(newRef);
         return "redirect:/";
     }
-    
+
+    @RequestMapping("/list")
+    public String listReferences(Model model){
+        model.addAttribute("references", references);
+        return "list";
+    }
     
     @ResponseBody
     @RequestMapping("/test")
@@ -46,5 +51,14 @@ public class ReferenceController {
         return ref.toBibTex();
     }
 
-
+    @ResponseBody
+    @RequestMapping("/test1")
+    public String test1(){
+        String s = "";
+        if(references != null && !references.isEmpty()){
+            s = references.get(0).toBibTex(); 
+        }
+        return s;
+    }
+    
 }
