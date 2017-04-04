@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -16,15 +17,21 @@ public class ReferenceController {
     List<Reference> references;
     
     
-    @RequestMapping("/addreference")
+    @RequestMapping(value = "/addreference", method = RequestMethod.GET)
     public String addReference(Model model) {
+        return "addreference";
+    }
+    
+    @RequestMapping(value = "/addreference", method = RequestMethod.POST)
+    public String createNewReference(@RequestParam Map<String,String> allRequestParams){
         if(references == null){
             this.references = new ArrayList<>();
         }
-        Reference newRef = new Reference(this.extractAttributes(model.asMap()));
+        Reference newRef = new Reference(allRequestParams);
         references.add(newRef);
-        return "addreference";
+        return "redirect:/";
     }
+    
     
     @ResponseBody
     @RequestMapping("/test")
@@ -39,12 +46,5 @@ public class ReferenceController {
         return ref.toBibTex();
     }
 
-    private Map<String, String> extractAttributes(Map<String, Object> map){
-        HashMap<String, String> attributes = new HashMap<>();
-        for(String key : map.keySet()){
-            attributes.put(key, map.get(key).toString());
-        }
-        return attributes;
-    }
-    
+
 }
