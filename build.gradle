@@ -21,8 +21,7 @@ jacocoTestReport {
 }
 
 jar {
-    baseName = 'gs-serving-web-content'
-    version =  '0.1.0'
+    baseName = 'bibtexpro'
 }
 
 repositories {
