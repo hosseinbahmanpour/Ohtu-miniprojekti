@@ -12,7 +12,7 @@ class BibTexParser {
             b.append(",\n");
             b.append(key + " = " + StringToBibTex(attributes.get(key)));
         }
-        b.append("\n}\n\n");
+        b.append(",\n}\n\n");
         return b.toString();
     }
 
