@@ -1,6 +1,5 @@
 buildscript {
-    repositories {
-        mavenCentral()
+    repositories {        mavenCentral()
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE")
@@ -26,6 +25,16 @@ jar {
 
 repositories {
     mavenCentral()
+}
+
+dependencies {
+    testCompile 'junit:junit:[4,)'
+}
+
+test {
+    testLogging {
+        exceptionFormat = 'full'
+    }
 }
 
 /*
