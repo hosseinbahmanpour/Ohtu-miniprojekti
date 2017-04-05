@@ -4,9 +4,17 @@
     <title>BibTeX PRO</title>
 </head>
 <body>
-    <div th:each="reference : ${references}">
-        <span th:text="${reference.type}">Type</span>
-        <span th:text="${reference.id}">id</span>
-    </div>
+    <table>
+        <tr>
+            <th>Type</th>
+            <th>Id</th>
+            <th>BibTex</th>
+        </tr>
+        <tr th:each="reference : ${references}">
+            <th th:text="${reference.type}">Type</th>
+            <th th:text="${reference.id}">id</th>
+            <th th:text="${reference.toBibTex()}">bibtex</th>
+        </tr>
+    </table>
 </body>
 </html>
