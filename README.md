@@ -2,5 +2,6 @@
 # Ohtu-miniprojekti
 Pieni ryhmätyö
 
-https://bibtexpro.herokuapp.com/
-https://trello.com/b/1gV3Tmev/lohtu
+[App](https://bibtexpro.herokuapp.com/)
+
+[Trello](https://trello.com/b/1gV3Tmev/lohtu)
