@@ -52,7 +52,6 @@ public class ReferenceController {
         return "addinproceeding";
     }
    
-
     @RequestMapping("/list")
     public String listReferences(Model model) {
         model.addAttribute("references", references);
@@ -63,29 +62,6 @@ public class ReferenceController {
     public String show(@PathVariable int id) {
         //show a single reference with all info, search by id.
         return "redirect:/list";
-    }
-
-    @ResponseBody
-    @RequestMapping("/test")
-    public String test() {
-        Map<String, String> map = new HashMap<>();
-        map.put("type", "Book");
-        map.put("id", "testiId");
-        map.put("title", "testiKirja");
-        map.put("author", "Meikalainen, Matti");
-        map.put("year", "2017");
-        Reference ref = new Reference(map);
-        return ref.toBibTex();
-    }
-
-    @ResponseBody
-    @RequestMapping("/test1")
-    public String test1() {
-        String s = "";
-        if (references != null && !references.isEmpty()) {
-            s = references.get(0).toBibTex();
-        }
-        return s;
     }
 
     @RequestMapping(value = "/bibtex", method = RequestMethod.GET)
