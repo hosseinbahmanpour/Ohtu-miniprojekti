@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>BibTeX PRO</title>
+</head>
+<body>
+    <form action="#" th:action="@{/addarticle}" th:object="${test}" method="post">
+        <input type="hidden" value="article" name="type"/>
+        Id: <br/>
+        <input type="text" name="id" /> <br/>
+        Author: <br/>
+        <input type="text" name="author" /> <br/>
+        Title: <br/>
+        <input type="text" name="title" /> <br/>
+        Journal: <br/>
+        <input type="text" name="journal" /> <br/>
+        Year: <br/>
+        <input type="text" name="year" /> <br/>
+        Volume: <br/>
+        <input type="text" name="volume" /> <br/>
+        <input type="submit" value="Add"/>
+    </form>
+    <form action="#" th:action="@{/export}" th:object="${test}" method="post">
+        <input type="submit" value="Export"/>
+    </form>
+</body>
+</html>
