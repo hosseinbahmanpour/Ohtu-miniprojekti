@@ -34,7 +34,7 @@ public class ReferenceController {
         }
         Reference newRef = new Reference(allRequestParams);
         references.add(newRef);
-        return "redirect:/";
+        return "redirect:/addreference";
     }
 
     @RequestMapping(value = "/addbook", method = RequestMethod.GET)
