@@ -1,5 +1,6 @@
 buildscript {
-    repositories {        mavenCentral()
+    repositories {
+        mavenCentral()
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE")
@@ -13,10 +14,10 @@ apply plugin: 'application'
 apply plugin: 'org.springframework.boot'
 
 jacocoTestReport {
-  reports {
-    xml.enabled = true
-    html.enabled = true
-  }
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
 }
 
 jar {
@@ -27,25 +28,39 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    testCompile 'junit:junit:[4,)'
+/*
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+ */
+
+project.ext {
+    seleniumVersion = '2.53.1'
+    cucumberVersion = '1.2.5'
 }
 
 test {
     testLogging {
         exceptionFormat = 'full'
     }
+
+    testLogging.showStandardStreams = true
+    systemProperties System.getProperties()
 }
 
-/*
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-*/
 
 dependencies {
+    compile('org.springframework.boot:spring-boot-starter')
+    compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     compile("org.springframework.boot:spring-boot-devtools")
-    testCompile("junit:junit")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile group: 'org.fluentlenium', name: 'fluentlenium-core', version: '0.10.3'
+    testCompile group: 'org.fluentlenium', name: 'fluentlenium-assertj', version: '0.10.3'
+    testCompile 'info.cukes:cucumber-java:' + cucumberVersion
+    testCompile 'info.cukes:cucumber-junit:' + cucumberVersion
+    testCompile 'junit:junit:[4,)'
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-api', version:seleniumVersion
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version:seleniumVersion
 }
 
 mainClassName = "bibtexpro.Application"
