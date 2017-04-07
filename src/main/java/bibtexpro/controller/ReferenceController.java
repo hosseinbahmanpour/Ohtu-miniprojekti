@@ -72,7 +72,7 @@ public class ReferenceController {
         return s;
     }
 
-//    @RequestMapping(value = "/files/{id}", method = RequestMethod.GET)
+//    @RequestMapping(value = "/bibtex", method = RequestMethod.GET)
 //    public ResponseEntity<byte[]> viewFile(Authentication authentication, @PathVariable Long id) {
 //
 //        final HttpHeaders headers = new HttpHeaders();
