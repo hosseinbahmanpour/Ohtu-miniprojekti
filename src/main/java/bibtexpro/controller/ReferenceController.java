@@ -117,15 +117,17 @@ public class ReferenceController {
         return s;
     }
 
-//    @RequestMapping(value = "/bibtex", method = RequestMethod.GET)
-//    public ResponseEntity<byte[]> viewFile(Authentication authentication, @PathVariable Long id) {
-//
-//        final HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.TEXT_PLAIN);
-//        headers.add("Content-Disposition", "attachment; filename=references.bib");
-//        headers.setContentLength(fo.getContentLength());
-//        return new ResponseEntity<>(fo.getContent(), headers, HttpStatus.CREATED);
-//
-//    }
+    @RequestMapping(value = "/bibtex", method = RequestMethod.GET)
+    public ResponseEntity<byte[]> viewFile() {
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.TEXT_PLAIN);
+        headers.add("Content-Disposition", "attachment; filename=references.bib");
+        String s = "";
+        for (Reference reference : references) {
+            s += reference.toBibTex();
+        }
+        headers.setContentLength(s.getBytes().length);
+        return new ResponseEntity<>(s.getBytes(), headers, HttpStatus.CREATED);
 
+    }
 }
