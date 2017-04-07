@@ -2,5 +2,8 @@
 # Ohtu-miniprojekti
 Pieni ryhmätyö
 
+[App](https://bibtexpro.herokuapp.com/)
 
-tänne tavaraa
+[Trello](https://trello.com/b/1gV3Tmev/lohtu)
+
+[BurnDown](https://BurndownForTrello.com/share/grucoaw72r)
