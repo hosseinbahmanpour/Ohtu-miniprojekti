@@ -52,13 +52,28 @@ public class ReferenceController {
         return "redirect:/";
     }
 
-        @RequestMapping(value = "/addarticle", method = RequestMethod.GET)
+    @RequestMapping(value = "/addarticle", method = RequestMethod.GET)
     public String addArticle(Model model) {
         return "addarticle";
     }
     
     @RequestMapping(value = "/addarticle", method = RequestMethod.POST)
     public String createNewArticle(@RequestParam Map<String,String> allRequestParams){
+        if(references == null){
+            this.references = new ArrayList<>();
+        }
+        Reference newRef = new Reference(allRequestParams);
+        references.add(newRef);
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/addinproceeding", method = RequestMethod.GET)
+    public String addInproceeding(Model model) {
+        return "addinproceeding";
+    }
+    
+    @RequestMapping(value = "/addinproceeding", method = RequestMethod.POST)
+    public String createNewInproceeding(@RequestParam Map<String,String> allRequestParams){
         if(references == null){
             this.references = new ArrayList<>();
         }
