@@ -128,6 +128,5 @@ public class ReferenceController {
         }
         headers.setContentLength(s.getBytes().length);
         return new ResponseEntity<>(s.getBytes(), headers, HttpStatus.CREATED);
-
     }
 }
