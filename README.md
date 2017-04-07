@@ -2,5 +2,5 @@
 # Ohtu-miniprojekti
 Pieni ryhmätyö
 
-
-tänne tavaraa
+https://bibtexpro.herokuapp.com/
+https://trello.com/b/1gV3Tmev/lohtu
