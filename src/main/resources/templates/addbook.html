@@ -5,30 +5,30 @@
 </head>
 <body>
     <form action="#" th:action="@{/addreference}" th:object="${test}" method="post">
-        <input type="hidden" value="Book" name="type"/>
+        <input type="hidden" id="type" value="Book" name="type"/>
         * Id: <br/>
-        <input type="text" name="id" required="" /> <br/>
+        <input type="text" id="refId" name="id" required="" /> <br/>
         * Title: <br/>
-        <input type="text" name="title" required="" /> <br/>
+        <input type="text" id="title" name="title" required="" /> <br/>
         * Author: <br/>
-        <input type="text" name="author" required="" /> <br/>
+        <input type="text" id="author" name="author" required="" /> <br/>
         * Year: <br/>
-        <input type="text" name="year" pattern="[0-9]*" required="" /> <br/>
+        <input type="text" id="year" name="year" pattern="[0-9]*" required="" /> <br/>
         Volume/Number: <br/>
-        <input type="text" name="volume" pattern="[0-9]*" /> <br/>
+        <input type="text" id="volume" name="volume" pattern="[0-9]*" /> <br/>
         Series: <br/>
-        <input type="text" name="series" /> <br/>
+        <input type="text" id="series" name="series" /> <br/>
         Address: <br/>
-        <input type="text" name="address" /> <br/>
+        <input type="text" id="address" name="address" /> <br/>
         Edition: <br/>
-        <input type="text" name="edition" /> <br/>
+        <input type="text" id="edition" name="edition" /> <br/>
         Month: <br/>
-        <input type="text" name="month" /> <br/>
+        <input type="text" id="month" name="month" /> <br/>
         Note: <br/>
-        <input type="text" name="note" /> <br/>
+        <input type="text" id="note" name="note" /> <br/>
         Key: <br/>
-        <input type="text" name="key" /> <br/>
-        <input type="submit" value="Add"/> *Required
+        <input type="text" id="key" name="key" /> <br/>
+        <input type="submit" id="submitButton" value="Add"/> *Required
     </form>
 </body>
 </html>

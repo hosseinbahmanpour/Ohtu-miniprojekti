@@ -6,29 +6,29 @@
 <body>
     <h1>Welcome to BibTeXPro</h1>
     
-    <a th:href="@{/bibtex}" >Download BibTex-file</a><br/>
-    <a th:href="@{/list}" >View entries as list</a><br/>
+    <a th:href="@{/bibtex}" id="bibtexLink" >Download BibTex-file</a><br/>
+    <a th:href="@{/list}" id="listLink" >View entries as list</a><br/>
     <br/>
     
     <select id="referenceType" onchange="formSwap()">
-        <option value="addarticle.html">
+        <option id="articleOption" value="addarticle.html">
             Article
         </option>
-        <option value="addbook.html">
+        <option id="bookOption" value="addbook.html">
             Book
         </option>
-        <option value="addinproceeding.html">
+        <option id="inproceedingOption" value="addinproceeding.html">
             Proceeding
         </option>
     </select>
     
-    <p id="form"></p>
+    <p id="referenceForm"></p>
     
 <script>
     window.onload = formSwap();
     function formSwap() {
         var type = document.getElementById("referenceType").value;
-        var form = document.getElementById("form");
+        var form = document.getElementById("referenceForm");
         var xhr = new XMLHttpRequest(); 
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
