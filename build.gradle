@@ -54,13 +54,23 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     compile("org.springframework.boot:spring-boot-devtools")
     testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile("org.springframework:spring-test")
     testCompile group: 'org.fluentlenium', name: 'fluentlenium-core', version: '0.10.3'
     testCompile group: 'org.fluentlenium', name: 'fluentlenium-assertj', version: '0.10.3'
-    testCompile 'info.cukes:cucumber-java:' + cucumberVersion
-    testCompile 'info.cukes:cucumber-junit:' + cucumberVersion
+    
+     testCompile "info.cukes:cucumber-core:" + cucumberVersion
+    testCompile "info.cukes:cucumber-java:" + cucumberVersion
+    testCompile "info.cukes:cucumber-junit:" + cucumberVersion
+    testCompile "info.cukes:cucumber-spring:" + cucumberVersion
     testCompile 'junit:junit:[4,)'
-    compile group: 'org.seleniumhq.selenium', name: 'selenium-api', version:seleniumVersion
-    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version:seleniumVersion
+    
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-api', version: seleniumVersion
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: seleniumVersion
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-server', version: seleniumVersion
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-remote-driver', version: seleniumVersion
+    testCompile("io.github.bonigarcia:webdrivermanager:1.6.2") {
+        exclude group: 'org.seleniumhq.selenium'
+    }
 }
 
 mainClassName = "bibtexpro.Application"

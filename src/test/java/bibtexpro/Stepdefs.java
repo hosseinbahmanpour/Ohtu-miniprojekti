@@ -27,81 +27,101 @@ public class Stepdefs {
     public void setupTest() {
     }
 
-    WebDriver driver = new HtmlUnitDriver();
+    WebDriver driver = new HtmlUnitDriver(true);
     String baseUrl = "http://localhost:8080";
 
-    @Before
-    public void setUp() throws Exception {
-        if (driver == null) {
-            driver = new HtmlUnitDriver();
-            driver.navigate().to(baseUrl);
-            driver.manage().deleteAllCookies();
-        }
-    }
+//    @Before
+//    public void setUp() throws Exception {
+//        if (driver == null) {
+//            driver = new HtmlUnitDriver();
+//            driver.navigate().to(baseUrl);
+//            driver.manage().deleteAllCookies();
+//        }
+//    }
 
-    private void getAddReference() {
-        driver.get(baseUrl + "/addreference");
+    private void getFrontPage() {
+        driver.get(baseUrl+"/");
     }
 
     private void getReferenceListing() {
         driver.get(baseUrl + "/list");
     }
-
-    @Given("^I have the required fields available to insert the data into$")
-    public void i_have_the_required_fields() throws Throwable {
-        getAddReference();
+    
+    @Given("^index page is selected$")
+    public void index_page_is_selected() throws Throwable {
+        getFrontPage();
     }
-
-    @When("^I add a book reference with the Id \"([^\"]*)\", Title \"([^\"]*)\", Author \"([^\"]*)\", year \"([^\"]*)\"$")
-    public void i_add_a_book_reference(String id, String title, String author, String year) throws Throwable {
-
-        WebDriverWait some = new WebDriverWait(driver, 5);
+    
+    @When("^the page is loaded$")
+    public void wait_for_load() throws Throwable {
+        Thread.sleep(2000);
+    }
+    
+    @Then("^input element with id \"([^\"]*)\" and value \"([^\"]*)\" exists$")
+    public void element_with_given_id_and_given_value_exists(String id, String value) throws Throwable {
         System.out.println(driver.getPageSource());
-
-        some.until(ExpectedConditions.visibilityOfElementLocated(By.name("id")));
-
-        WebElement element = driver.findElement(By.name("id"));
-        element.sendKeys(id);
-
-        element = driver.findElement(By.name("title"));
-        element.sendKeys(title);
-
-        element = driver.findElement(By.name("author"));
-        element.sendKeys(author);
-        element = driver.findElement(By.name("year"));
-        element.sendKeys(year);
-        element.submit();
+//        WebDriverWait some = new WebDriverWait(driver, 5);
+//        some.until(ExpectedConditions.visibilityOfElementLocated(By.id(id)));
+        WebElement element = driver.findElement(By.id(id));
+        String s = element.getAttribute("value");
+        assertEquals(value, s);
     }
 
-    @Then("^the reference \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\" should have been added$")
-    public void the_reference_should_have_been_added(String id, String title, String author, String year) throws Throwable {
-        getReferenceListing();
-        assertTrue(driver.getPageSource().contains(id));
-        assertTrue(driver.getPageSource().contains(title));
-        assertTrue(driver.getPageSource().contains(author));
-        assertTrue(driver.getPageSource().contains(year));
-    }
-
-    @Given("^there is a book in the reference library with the Id \"([^\"]*)\", Title \"([^\"]*)\", Author \"([^\"]*)\", year \"([^\"]*)\"$")
-    public void there_is_a_book_in_the_reference_library(String id, String title, String author, String year) throws Throwable {
-        i_add_a_book_reference(id, title, author, year);
-    }
-
-    @When("^I export the book reference$")
-    public void export_book_reference() throws Throwable {
-        getAddReference();
-        WebElement element = driver.findElements(By.name("form")).get(0);
-        element.submit();
-    }
-
-    @Then("^a BibTeX file with the contents of Id \"([^\"]*)\", Title \"([^\"]*)\", Author \"([^\"]*)\", year \"([^\"]*)\" should have been created$")
-    public void bibtex_file_should_have_been_created(String id, String title, String author, String year) throws Throwable {
-        getReferenceListing();
-        assertTrue(driver.getPageSource().contains(id));
-        assertTrue(driver.getPageSource().contains(title));
-        assertTrue(driver.getPageSource().contains(author));
-        assertTrue(driver.getPageSource().contains(year));
-    }
+//    @Given("^I have the required fields available to insert the data into$")
+//    public void i_have_the_required_fields() throws Throwable {
+//        getAddReference();
+//    }
+//
+//    @When("^I add a book reference with the Id \"([^\"]*)\", Title \"([^\"]*)\", Author \"([^\"]*)\", year \"([^\"]*)\"$")
+//    public void i_add_a_book_reference(String id, String title, String author, String year) throws Throwable {
+//
+//        WebDriverWait some = new WebDriverWait(driver, 5);
+//        System.out.println(driver.getPageSource());
+//
+//        some.until(ExpectedConditions.visibilityOfElementLocated(By.name("id")));
+//
+//        WebElement element = driver.findElement(By.name("id"));
+//        element.sendKeys(id);
+//
+//        element = driver.findElement(By.name("title"));
+//        element.sendKeys(title);
+//
+//        element = driver.findElement(By.name("author"));
+//        element.sendKeys(author);
+//        element = driver.findElement(By.name("year"));
+//        element.sendKeys(year);
+//        element.submit();
+//    }
+//
+//    @Then("^the reference \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\" should have been added$")
+//    public void the_reference_should_have_been_added(String id, String title, String author, String year) throws Throwable {
+//        getReferenceListing();
+//        assertTrue(driver.getPageSource().contains(id));
+//        assertTrue(driver.getPageSource().contains(title));
+//        assertTrue(driver.getPageSource().contains(author));
+//        assertTrue(driver.getPageSource().contains(year));
+//    }
+//
+//    @Given("^there is a book in the reference library with the Id \"([^\"]*)\", Title \"([^\"]*)\", Author \"([^\"]*)\", year \"([^\"]*)\"$")
+//    public void there_is_a_book_in_the_reference_library(String id, String title, String author, String year) throws Throwable {
+//        i_add_a_book_reference(id, title, author, year);
+//    }
+//
+//    @When("^I export the book reference$")
+//    public void export_book_reference() throws Throwable {
+//        getAddReference();
+//        WebElement element = driver.findElements(By.name("form")).get(0);
+//        element.submit();
+//    }
+//
+//    @Then("^a BibTeX file with the contents of Id \"([^\"]*)\", Title \"([^\"]*)\", Author \"([^\"]*)\", year \"([^\"]*)\" should have been created$")
+//    public void bibtex_file_should_have_been_created(String id, String title, String author, String year) throws Throwable {
+//        getReferenceListing();
+//        assertTrue(driver.getPageSource().contains(id));
+//        assertTrue(driver.getPageSource().contains(title));
+//        assertTrue(driver.getPageSource().contains(author));
+//        assertTrue(driver.getPageSource().contains(year));
+//    }
 
     @After
     public void tearDown() {
