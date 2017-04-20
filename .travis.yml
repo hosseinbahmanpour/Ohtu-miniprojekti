@@ -1,7 +1,7 @@
 language: java
 
 jdk:
-  - openjdk8
+  - oraclejdk8
 
 #Viikon 2 tehtävistä
 #after_success:
