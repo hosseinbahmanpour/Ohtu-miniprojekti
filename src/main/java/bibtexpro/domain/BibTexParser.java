@@ -9,8 +9,10 @@ class BibTexParser {
         b.append(ref.getType() + '{' + ref.getId());
         Map<String, String> attributes = ref.getAttributes();
         for (String key : attributes.keySet()) {
+            String value = attributes.get(key).trim();
+            if(value.isEmpty()) continue;
             b.append(",\n");
-            b.append(key + " = " + StringToBibTex(attributes.get(key)));
+            b.append(key + " = " + StringToBibTex(value));
         }
         b.append(",\n}\n\n");
         return b.toString();
