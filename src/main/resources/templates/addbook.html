@@ -7,13 +7,13 @@
     <form action="#" th:action="@{/addreference}" th:object="${test}" method="post">
         <input type="hidden" value="Book" name="type"/>
         * Id: <br/>
-        <input type="text" name="id" /> <br/>
+        <input type="text" name="id" required="" /> <br/>
         * Title: <br/>
-        <input type="text" name="title" /> <br/>
+        <input type="text" name="title" required="" /> <br/>
         * Author: <br/>
-        <input type="text" name="author" /> <br/>
+        <input type="text" name="author" required="" /> <br/>
         * Year: <br/>
-        <input type="text" name="year" /> <br/>
+        <input type="text" name="year" required="" /> <br/>
         <input type="submit" value="Add"/>
     </form>
 </body>
