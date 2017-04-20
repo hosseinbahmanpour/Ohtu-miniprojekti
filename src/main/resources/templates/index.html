@@ -5,6 +5,40 @@
 </head>
 <body>
     <h1>Welcome to BibTeXPro</h1>
-    <a th:href="@{/bibtex}" >Download BibTex-file</a>
+    
+    <a th:href="@{/bibtex}" >Download BibTex-file</a><br/>
+    
+    <a th:href="@{/list}" >View entries as list</a><br/>
+    
+    <select id="referenceType" onchange="formSwap()">
+        <option value="addarticle.html">
+            Article
+        </option>
+        <option value="addbook.html">
+            Book
+        </option>
+        <option value="addinproceeding.html">
+            Proceeding
+        </option>
+    </select>
+    
+    <p id="form"></p>
+    
+<script>
+    window.onload = formSwap();
+    function formSwap() {
+        var type = document.getElementById("referenceType").value;
+        var form = document.getElementById("form");
+        var xhr = new XMLHttpRequest(); 
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                form.innerHTML = xhr.responseText;
+            }   
+        };      
+        xhr.open('GET', '/'+type);
+        xhr.send();  
+    }
+</script>
+
 </body>
 </html>

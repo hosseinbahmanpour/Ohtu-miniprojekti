@@ -6,20 +6,17 @@
 <body>
     <form action="#" th:action="@{/addreference}" th:object="${test}" method="post">
         <input type="hidden" value="inrpoceeding" name="type"/>
-        Id: <br/>
-        <input type="text" name="id" /><p>*</p> <br/>
-        Author: <br/>
-        <input type="text" name="author" /><p>*</p> <br/>
-        Title: <br/>
-        <input type="text" name="title" /><p>*</p> <br/>
-        Booktitle: <br/>
-        <input type="text" name="booktitle" /><p>*</p> <br/>
-        Year: <br/>
-        <input type="text" name="year" /><p>*</p> <br/>
+        * Id: <br/>
+        <input type="text" name="id" /> <br/>
+        * Author: <br/>
+        <input type="text" name="author" /> <br/>
+        * Title: <br/>
+        <input type="text" name="title" /> <br/>
+        * Booktitle: <br/>
+        <input type="text" name="booktitle" /> <br/>
+        * Year: <br/>
+        <input type="text" name="year" /> <br/>
         <input type="submit" value="Add"/>
-    </form>
-    <form action="#" th:action="@{/export}" th:object="${test}" method="post">
-        <input type="submit" value="Export"/>
     </form>
 </body>
 </html>
