@@ -22,11 +22,6 @@ public class ReferenceController {
 
     List<Reference> references;
 
-    @RequestMapping(value = "/addreference", method = RequestMethod.GET)
-    public String addReference(Model model) {
-        return "addreference";
-    }
-
     @RequestMapping(value = "/addreference", method = RequestMethod.POST)
     public String createNewReference(@RequestParam Map<String, String> allRequestParams) {
         if (references == null) {

@@ -14,14 +14,4 @@ public class IndexController {
         model.addAttribute("reference", null);
         return "index";
     }
-    
-    @PostMapping("/add")
-    public String add(Model model) {
-        return "redirect:/";
-    }
-    
-    @PostMapping("/export")
-    public String export(Model model) {
-        return "redirect:/";
-    }
 }
