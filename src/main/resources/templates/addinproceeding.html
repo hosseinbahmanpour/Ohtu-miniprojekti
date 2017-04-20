@@ -15,25 +15,23 @@
         * Booktitle: <br/>
         <input type="text" name="booktitle" required="" /> <br/>
         * Year: <br/>
-        <input type="text" name="year" required="" /> <br/>
+        <input type="text" name="year" pattern="[0-9]*" required="" /> <br/>
         Editor: <br/>
         <input type="text" name="editor" /> <br/>
         Volume/Number: <br/>
         <input type="text" name="volume" /> <br/>
         Series: <br/>
         <input type="text" name="series" /> <br/>
-        Type: <br/>
-        <input type="text" name="type" /> <br/>
-        Chapter: <br/>
-        <input type="text" name="chapter" /> <br/>
         Pages: <br/>
-        <input type="text" name="pages" /> <br/>
+        <input type="text" name="pages" pattern="[0-9]*(--[0-9]*)?" /> <br/>
         Address: <br/>
         <input type="text" name="address" /> <br/>
-        Edition: <br/>
-        <input type="text" name="edition" /> <br/>
         Month: <br/>
         <input type="text" name="month" /> <br/>
+        Organization: <br/>
+        <input type="text" name="organization" /> <br/>
+        Publisher: <br/>
+        <input type="text" name="publisher" /> <br/>
         Note: <br/>
         <input type="text" name="note" /> <br/>
         Key: <br/>

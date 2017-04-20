@@ -15,13 +15,13 @@
         * Journal: <br/>
         <input type="text" name="journal" required="" /> <br/>
         * Year: <br/>
-        <input type="text" name="year" required="" /> <br/>
+        <input type="text" name="year" pattern="[0-9]*" required="" /> <br/>
         * Volume: <br/>
-        <input type="text" name="volume" required="" /> <br/>
+        <input type="text" name="volume" pattern="[0-9]*" required="" /> <br/>
         Number: <br/>
-        <input type="text" name="number" /> <br/>
+        <input type="text" name="number" pattern="[0-9]*" /> <br/>
         Pages: <br/>
-        <input type="text" name="pages" /> <br/>
+        <input type="text" name="pages" pattern="[0-9]*(--[0-9]*)?" /> <br/>
         Month: <br/>
         <input type="text" name="month" /> <br/>
         Note: <br/>
