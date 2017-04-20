@@ -6,6 +6,9 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,33 +41,48 @@ public class Stepdefs {
 //            driver.manage().deleteAllCookies();
 //        }
 //    }
-
     private void getFrontPage() {
-        driver.get(baseUrl+"/");
+        driver.get(baseUrl + "/");
     }
 
     private void getReferenceListing() {
         driver.get(baseUrl + "/list");
     }
-    
+
     @Given("^index page is selected$")
     public void index_page_is_selected() throws Throwable {
         getFrontPage();
     }
-    
+
     @When("^the page is loaded$")
     public void wait_for_load() throws Throwable {
-        Thread.sleep(2000);
+        Thread.sleep(1000);
     }
-    
+
+    @When("^\"([^\"]*)\" reference is selected$")
+    public void wait_for_load(String type) throws Throwable {
+        Thread.sleep(1000);
+        driver.findElement(By.id(type + "Option")).click();
+        Thread.sleep(1000);
+    }
+
     @Then("^input element with id \"([^\"]*)\" and value \"([^\"]*)\" exists$")
     public void element_with_given_id_and_given_value_exists(String id, String value) throws Throwable {
-        System.out.println(driver.getPageSource());
-//        WebDriverWait some = new WebDriverWait(driver, 5);
-//        some.until(ExpectedConditions.visibilityOfElementLocated(By.id(id)));
         WebElement element = driver.findElement(By.id(id));
         String s = element.getAttribute("value");
         assertEquals(value, s);
+    }
+
+    @Then("^input element contains only id \"([^\"]*)\" and value \"([^\"]*)\"$")
+    public void element_does_not_contains_other(String id, String value) throws Throwable {
+        Set<String> references = new HashSet(Arrays.asList("Article", "Book", "Proceeding"));
+        references.remove(value);
+        WebElement element = driver.findElement(By.id(id));
+        String s;
+        for (String reference : references) {
+            s = element.getAttribute("Value");
+            assertNotEquals(value,s);
+        }
     }
 
 //    @Given("^I have the required fields available to insert the data into$")
@@ -122,7 +140,6 @@ public class Stepdefs {
 //        assertTrue(driver.getPageSource().contains(author));
 //        assertTrue(driver.getPageSource().contains(year));
 //    }
-
     @After
     public void tearDown() {
         driver.close();
