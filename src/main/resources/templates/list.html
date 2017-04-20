@@ -15,16 +15,12 @@
         	<tr>
          	   	<th class="tg-yw4l">Type</th>
          	 	<th class="tg-yw4l">Id</th>
-         		<th class="tg-yw4l">Author</th>
-	 		<th class="tg-yw4l">Title</th>
-			<th class="tg-yw4l">Year</th>
+         		<th class="tg-yw4l">Fields</th>
        	 	</tr>
         	<tr th:each="reference : ${references}">
        			<td class="tg-yw4l" th:text="${reference.type}">Type</td>
             		<td class="tg-yw4l" th:text="${reference.id}">Id</td>
-            		<td class="tg-yw4l" th:text="${reference.author}">Author</td>
-			<td class="tg-yw4l" th:text="${reference.title}">Title</td>
-			<td class="tg-yw4l" th:text="${reference.year}">Year</td>
+            		<td class="tg-yw4l" th:text="${reference.attributes}">Fields</td>
         	</tr>
     	</table>
 </body>
