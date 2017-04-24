@@ -61,9 +61,9 @@ public class Stepdefs {
     }
 
     private void selectReferenceType(String type) throws Throwable {
-        By typeOption = By.id(type + "Option");
+        By typeOption = By.id(type.toLowerCase() + "Option");
         driver.findElement(typeOption).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("refId")));
+        wait.until(ExpectedConditions.attributeContains(By.id("type"), "value", type));
     }
 
     private WebElement selectElementById(String id) throws Throwable {
@@ -81,7 +81,7 @@ public class Stepdefs {
 
     @When("^\"([^\"]*)\" reference is selected$")
     public void reference_is_selected(String ref) throws Throwable {
-        selectReferenceType(ref.toLowerCase());
+        selectReferenceType(ref);
     }
 
     // TODO: skip?
@@ -103,7 +103,7 @@ public class Stepdefs {
 
     @When("^I add an article reference with the Id \"([^\"]*)\", Author \"([^\"]*)\", Title \"([^\"]*)\", Journal \"([^\"]*)\", year \"([^\"]*)\", Volume \"([^\"]*)\"$")
     public void add_article_with_Id_Author_Title_Journal_year_Volume(String id, String author, String title, String journal, String year, String volume) throws Throwable {
-        selectReferenceType("article");
+        selectReferenceType("Article");
         WebElement form = driver.findElement(By.id("refId"));
         form.sendKeys(id);
 
@@ -128,7 +128,7 @@ public class Stepdefs {
 
     @When("^I add a book reference with the Id \"([^\"]*)\", Title \"([^\"]*)\", Author \"([^\"]*)\", year \"([^\"]*)\"$")
     public void add_book_with_Id_Title_Author_year(String id, String title, String author, String year) throws Throwable {
-        selectReferenceType("book");
+        selectReferenceType("Book");
         WebElement form = driver.findElement(By.id("refId"));
         form.sendKeys(id);
         selectElementById("title").sendKeys(title);
@@ -140,7 +140,7 @@ public class Stepdefs {
 
     @When("^I add a book reference with the Id \"([^\"]*)\", Author/Editor \"([^\"]*)\", Title \"([^\"]*)\", Publisher \"([^\"]*)\", year \"([^\"]*)\", Volume/Number \"([^\"]*)\"$")
     public void add_book_with_Id_Author_Editor_Title_Publisher_year_Volume_Number(String id, String authorEditor, String title, String publisher, String year, String volumeNumber) throws Throwable {
-        selectReferenceType("book");
+        selectReferenceType("Book");
         WebElement form = driver.findElement(By.id("refId"));
         form.sendKeys(id);
         selectElementById("author").sendKeys(authorEditor);
@@ -154,7 +154,7 @@ public class Stepdefs {
 
     @When("^I add a book reference with the Id \"([^\"]*)\", Author/Editor \"([^\"]*)\", Title \"([^\"]*)\", Publisher \"([^\"]*)\", year \"([^\"]*)\", Address \"([^\"]*)\"$")
     public void add_book_with_Id_Author_Editor_Title_Publisher_year_Address(String id, String authorEditor, String title, String publisher, String year, String address) throws Throwable {
-        selectReferenceType("book");
+        selectReferenceType("Book");
         WebElement form = driver.findElement(By.id("refId"));
         form.sendKeys(id);
         selectElementById("author").sendKeys(authorEditor);
@@ -168,7 +168,7 @@ public class Stepdefs {
 
     @When("^I add a book reference with the Id \"([^\"]*)\", Author/Editor \"([^\"]*)\", Title \"([^\"]*)\", Publisher \"([^\"]*)\", year \"([^\"]*)\"$")
     public void add_book_with_Id_Author_Editor_Title_Publisher_year(String id, String authorEditor, String title, String publisher, String year) throws Throwable {
-        selectReferenceType("book");
+        selectReferenceType("Book");
         WebElement form = driver.findElement(By.id("refId"));
         form.sendKeys(id);
         selectElementById("author").sendKeys(authorEditor);
@@ -181,7 +181,7 @@ public class Stepdefs {
 
     @When("^I add a book reference with the Id \"([^\"]*)\", Author/Editor \"([^\"]*)\", Title \"([^\"]*)\", Publisher \"([^\"]*)\", year \"([^\"]*)\", Key \"([^\"]*)\"$")
     public void add_book_with_Id_Author_Editor_Title_Publisher_year_Key(String id, String authorEditor, String title, String publisher, String year, String key) throws Throwable {
-        selectReferenceType("book");
+        selectReferenceType("Book");
         WebElement form = driver.findElement(By.id("refId"));
         form.sendKeys(id);
         selectElementById("author").sendKeys(authorEditor);
@@ -195,7 +195,7 @@ public class Stepdefs {
 
     @When("^I add a book reference with the Id \"([^\"]*)\", Author/Editor \"([^\"]*)\", Title \"([^\"]*)\", Publisher \"([^\"]*)\", year \"([^\"]*)\", Edition \"([^\"]*)\"$")
     public void add_book_with_Id_Author_Editor_Title_Publisher_year_Edition(String id, String authorEditor, String title, String publisher, String year, String edition) throws Throwable {
-        selectReferenceType("book");
+        selectReferenceType("Book");
         WebElement form = driver.findElement(By.id("refId"));
         form.sendKeys(id);
         selectElementById("author").sendKeys(authorEditor);
@@ -209,7 +209,7 @@ public class Stepdefs {
 
     @When("^I add a book reference with the Id \"([^\"]*)\", Author/Editor \"([^\"]*)\", Title \"([^\"]*)\", Publisher \"([^\"]*)\", year \"([^\"]*)\", Series \"([^\"]*)\"$")
     public void add_book_with_Id_Author_Editor_Title_Publisher_year_Series(String id, String authorEditor, String title, String publisher, String year, String series) throws Throwable {
-        selectReferenceType("book");
+        selectReferenceType("Book");
         WebElement form = driver.findElement(By.id("refId"));
         form.sendKeys(id);
         selectElementById("author").sendKeys(authorEditor);
@@ -223,7 +223,7 @@ public class Stepdefs {
 
     @When("^I add a book reference with the Id \"([^\"]*)\", Author/Editor \"([^\"]*)\", Title \"([^\"]*)\", Publisher \"([^\"]*)\", year \"([^\"]*)\", Month \"([^\"]*)\"$")
     public void add_book_with_Id_Author_Editor_Title_Publisher_year_Month(String id, String authorEditor, String title, String publisher, String year, String month) throws Throwable {
-        selectReferenceType("book");
+        selectReferenceType("Book");
         WebElement form = driver.findElement(By.id("refId"));
         form.sendKeys(id);
         selectElementById("author").sendKeys(authorEditor);
@@ -237,7 +237,7 @@ public class Stepdefs {
 
     @When("^I add a book reference with the Id \"([^\"]*)\", Title \"([^\"]*)\", Publisher \"([^\"]*)\", year \"([^\"]*)\"$")
     public void add_book_with_Id_Title_Publisher_year(String id, String title, String publisher, String year) throws Throwable {
-        selectReferenceType("book");
+        selectReferenceType("Book");
         WebElement form = driver.findElement(By.id("refId"));
         form.sendKeys(id);
         selectElementById("title").sendKeys(title);
@@ -248,7 +248,7 @@ public class Stepdefs {
 
     @When("^I add a book reference with the Id \"([^\"]*)\", Author/Editor \"([^\"]*)\", Title \"([^\"]*)\", Publisher \"([^\"]*)\", year \"([^\"]*)\", Note \"([^\"]*)\"$")
     public void add_book_with_Id_Author_Editor_Title_Publisher_year_Note(String id, String authorEditor, String title, String publisher, String year, String note) throws Throwable {
-        selectReferenceType("book");
+        selectReferenceType("Book");
         WebElement form = driver.findElement(By.id("refId"));
         form.sendKeys(id);
         selectElementById("author").sendKeys(authorEditor);
@@ -305,7 +305,7 @@ public class Stepdefs {
 
     @When("^I add an Inproceeding reference with the Id \"([^\"]*)\", Author \"([^\"]*)\", Title \"([^\"]*)\", Booktitle \"([^\"]*)\", year \"([^\"]*)\"$")
     public void add_inproceeding_with_the_Id_Author_Title_Booktitle_year(String id, String author, String title, String booktitle, String year) throws Throwable {
-        selectReferenceType("inproceeding");
+        selectReferenceType("Inproceeding");
         WebElement form = driver.findElement(By.id("refId"));
         form.sendKeys(id);
         selectElementById("author").sendKeys(author);
