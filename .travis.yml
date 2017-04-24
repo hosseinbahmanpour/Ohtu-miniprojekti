@@ -3,6 +3,9 @@ language: java
 jdk:
   - oraclejdk8
 
+services:
+  - mongodb
+
 #Viikon 2 tehtävistä
 #after_success:
 #  - gradle jacocoTestReport coveralls
