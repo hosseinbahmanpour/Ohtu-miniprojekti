@@ -71,4 +71,12 @@ public class ReferenceController {
         headers.setContentLength(s.getBytes().length);
         return new ResponseEntity<>(s.getBytes(), headers, HttpStatus.CREATED);
     }
+    
+    @RequestMapping(value="/reset", method=RequestMethod.GET)
+    public String deleteAll(){
+        this.references = new ArrayList<>();
+        return "redirect:/";
+    }
+    
+    
 }

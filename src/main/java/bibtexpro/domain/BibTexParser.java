@@ -6,7 +6,7 @@ class BibTexParser {
 
     public static String toBibTex(Reference ref) {
         StringBuilder b = new StringBuilder("@");
-        b.append(ref.getType() + '{' + ref.getId());
+        b.append(ref.getType() + '{' + ref.getRefId());
         Map<String, String> attributes = ref.getAttributes();
         for (String key : attributes.keySet()) {
             String value = attributes.get(key).trim();
