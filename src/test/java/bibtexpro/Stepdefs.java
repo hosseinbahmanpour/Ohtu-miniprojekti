@@ -346,6 +346,7 @@ public class Stepdefs {
 
     @After
     public void tearDown() {
+        driver.get(baseUrl+"/reset");
         driver.get(baseUrl + "/reset");
         driver.close();
         driver.quit();
