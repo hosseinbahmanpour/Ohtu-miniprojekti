@@ -135,7 +135,7 @@ public class Stepdefs {
         selectElementById("author").sendKeys(author);
         selectElementById("year").sendKeys(year);
 
-        form.submit();
+        selectElementById("submitButton").click();
     }
 
     @When("^I add a book reference with the Id \"([^\"]*)\", Author/Editor \"([^\"]*)\", Title \"([^\"]*)\", Publisher \"([^\"]*)\", year \"([^\"]*)\", Volume/Number \"([^\"]*)\"$")
@@ -148,7 +148,8 @@ public class Stepdefs {
         selectElementById("publisher").sendKeys(publisher);
         selectElementById("year").sendKeys(year);
         selectElementById("volume").sendKeys(volumeNumber);
-        form.submit();
+        
+        selectElementById("submitButton").click();
     }
 
     @When("^I add a book reference with the Id \"([^\"]*)\", Author/Editor \"([^\"]*)\", Title \"([^\"]*)\", Publisher \"([^\"]*)\", year \"([^\"]*)\", Address \"([^\"]*)\"$")
@@ -162,7 +163,7 @@ public class Stepdefs {
         selectElementById("year").sendKeys(year);
         selectElementById("address").sendKeys(address);
 
-        form.submit();
+        selectElementById("submitButton").click();
     }
 
     @When("^I add a book reference with the Id \"([^\"]*)\", Author/Editor \"([^\"]*)\", Title \"([^\"]*)\", Publisher \"([^\"]*)\", year \"([^\"]*)\"$")
@@ -175,7 +176,7 @@ public class Stepdefs {
         selectElementById("publisher").sendKeys(publisher);
         selectElementById("year").sendKeys(year);
 
-        form.submit();
+        selectElementById("submitButton").click();
     }
 
     @When("^I add a book reference with the Id \"([^\"]*)\", Author/Editor \"([^\"]*)\", Title \"([^\"]*)\", Publisher \"([^\"]*)\", year \"([^\"]*)\", Key \"([^\"]*)\"$")
@@ -189,7 +190,7 @@ public class Stepdefs {
         selectElementById("year").sendKeys(year);
         selectElementById("key").sendKeys(key);
 
-        form.submit();
+        selectElementById("submitButton").click();
     }
 
     @When("^I add a book reference with the Id \"([^\"]*)\", Author/Editor \"([^\"]*)\", Title \"([^\"]*)\", Publisher \"([^\"]*)\", year \"([^\"]*)\", Edition \"([^\"]*)\"$")
@@ -203,7 +204,7 @@ public class Stepdefs {
         selectElementById("year").sendKeys(year);
         selectElementById("edition").sendKeys(edition);
 
-        form.submit();
+        selectElementById("submitButton").click();
     }
 
     @When("^I add a book reference with the Id \"([^\"]*)\", Author/Editor \"([^\"]*)\", Title \"([^\"]*)\", Publisher \"([^\"]*)\", year \"([^\"]*)\", Series \"([^\"]*)\"$")
@@ -217,7 +218,7 @@ public class Stepdefs {
         selectElementById("year").sendKeys(year);
         selectElementById("series").sendKeys(series);
 
-        form.submit();
+        selectElementById("submitButton").click();
     }
 
     @When("^I add a book reference with the Id \"([^\"]*)\", Author/Editor \"([^\"]*)\", Title \"([^\"]*)\", Publisher \"([^\"]*)\", year \"([^\"]*)\", Month \"([^\"]*)\"$")
@@ -231,7 +232,7 @@ public class Stepdefs {
         selectElementById("year").sendKeys(year);
         selectElementById("month").sendKeys(month);
 
-        form.submit();
+        selectElementById("submitButton").click();
     }
 
     @When("^I add a book reference with the Id \"([^\"]*)\", Title \"([^\"]*)\", Publisher \"([^\"]*)\", year \"([^\"]*)\"$")
@@ -242,8 +243,7 @@ public class Stepdefs {
         selectElementById("title").sendKeys(title);
         selectElementById("publisher").sendKeys(publisher);
         selectElementById("year").sendKeys(year);
-
-        form.submit();
+        selectElementById("submitButton").click();
     }
 
     @When("^I add a book reference with the Id \"([^\"]*)\", Author/Editor \"([^\"]*)\", Title \"([^\"]*)\", Publisher \"([^\"]*)\", year \"([^\"]*)\", Note \"([^\"]*)\"$")
@@ -256,8 +256,8 @@ public class Stepdefs {
         selectElementById("publisher").sendKeys(publisher);
         selectElementById("year").sendKeys(year);
         selectElementById("note").sendKeys(note);
-
-        form.submit();
+        selectElementById("submitButton").click();
+        //form.submit();
     }
 
     @Then("^the book \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\" should have been added$")
@@ -312,7 +312,7 @@ public class Stepdefs {
         selectElementById("title").sendKeys(title);
         selectElementById("booktitle").sendKeys(booktitle);
         selectElementById("year").sendKeys(year);
-        form.submit();
+        selectElementById("submitButton").click();
     }
 
     @Then("^the inproceeding \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\" should have been added$")
@@ -347,6 +347,7 @@ public class Stepdefs {
     @After
     public void tearDown() {
         driver.get(baseUrl+"/reset");
+        driver.get(baseUrl + "/reset");
         driver.close();
         driver.quit();
     }

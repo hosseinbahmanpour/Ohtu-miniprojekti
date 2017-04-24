@@ -41,13 +41,14 @@ public class BibTexParserTest {
     public void toBibTexWorksWithLowerCaseScandicsAndWithoutAbbreviations() {
         Map<String,String> map = new HashMap<>();
         map.put("type", "Book");
-        map.put("id", "testiId");
+        map.put("refId", "testiId");
         map.put("title", "testiKirja");
         map.put("author", "Meikälöinen, Måtti");
         map.put("year", "2017");
         this.ref = new Reference(map);
         
         String output = BibTexParser.toBibTex(ref);
+        System.out.println(output);
         assertTrue(output.startsWith("@Book{testiId,\n"));
         assertTrue(output.contains("year = {2017},\n"));
         assertTrue(output.contains("author = {Meik\\\"{a}l\\\"{o}inen, M\\\'{a}tti},\n"));
@@ -59,7 +60,7 @@ public class BibTexParserTest {
     public void toBibTexWorksWithUpperCaseScandicsAndWithoutAbbreviations() {
         Map<String,String> map = new HashMap<>();
         map.put("type", "Book");
-        map.put("id", "testiId");
+        map.put("refId", "testiId");
         map.put("title", "testiKirja");
         map.put("author", "MeikÄlöinen, Ålgren");
         map.put("year", "2017");
@@ -77,7 +78,7 @@ public class BibTexParserTest {
     public void toBibTexWorksWithoutScandicsAndWithtAbbreviations() {
         Map<String,String> map = new HashMap<>();
         map.put("type", "Book");
-        map.put("id", "testiId");
+        map.put("refId", "testiId");
         map.put("title", "CS 1");
         map.put("author", "Meikalainen, Matti");
         map.put("year", "2017");
@@ -95,7 +96,7 @@ public class BibTexParserTest {
     public void toBibTexWorksWithScandicsAndWithAbbreviations() {
         Map<String,String> map = new HashMap<>();
         map.put("type", "Book");
-        map.put("id", "testiId");
+        map.put("refId", "testiId");
         map.put("title", "ÄÖ-kirja");
         map.put("author", "Meikalainen, Matti");
         map.put("year", "2017");
