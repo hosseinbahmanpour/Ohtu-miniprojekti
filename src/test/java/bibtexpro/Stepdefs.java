@@ -296,6 +296,7 @@ public class Stepdefs {
     @Then("^the book \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\" should not have been added$")
     public void the_book_should_not_have_been_added(String arg1, String arg2, String arg3, String arg4) throws Throwable {
         getBibTexFile();
+        System.out.println(driver.getPageSource());
         assertFalse(contains(arg1));
         assertFalse(contains(arg2));
         assertFalse(contains(arg3));
@@ -345,6 +346,7 @@ public class Stepdefs {
 
     @After
     public void tearDown() {
+        driver.get(baseUrl+"/reset");
         driver.close();
         driver.quit();
     }
