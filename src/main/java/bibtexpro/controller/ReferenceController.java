@@ -1,10 +1,10 @@
 package bibtexpro.controller;
 
 import bibtexpro.domain.Reference;
-import java.util.ArrayList;
-import java.util.HashMap;
+import bibtexpro.repository.ReferenceRepository;
 import java.util.List;
 import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,15 +20,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class ReferenceController {
 
-    List<Reference> references;
+    @Autowired
+    private ReferenceRepository referenceRepository;
 
     @RequestMapping(value = "/addreference", method = RequestMethod.POST)
     public String createNewReference(@RequestParam Map<String, String> allRequestParams) {
-        if (references == null) {
-            this.references = new ArrayList<>();
-        }
+        
         Reference newRef = new Reference(allRequestParams);
-        references.add(newRef);
+        referenceRepository.save(newRef);
         return "redirect:/";
     }
 
@@ -49,7 +48,7 @@ public class ReferenceController {
    
     @RequestMapping("/list")
     public String listReferences(Model model) {
-        model.addAttribute("references", references);
+        model.addAttribute("references", referenceRepository.findAll());
         return "list";
     }
 
@@ -65,6 +64,7 @@ public class ReferenceController {
         headers.setContentType(MediaType.TEXT_PLAIN);
         headers.add("Content-Disposition", "attachment; filename=references.bib");
         String s = "";
+        List<Reference> references = referenceRepository.findAll();
         for (Reference reference : references) {
             s += reference.toBibTex();
         }
@@ -74,7 +74,7 @@ public class ReferenceController {
     
     @RequestMapping(value="/reset", method=RequestMethod.GET)
     public String deleteAll(){
-        this.references = new ArrayList<>();
+        referenceRepository.deleteAll();
         return "redirect:/";
     }
     

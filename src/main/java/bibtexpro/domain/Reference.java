@@ -40,6 +40,10 @@ public class Reference {
     public void setAttribute(String key, String value) {
         this.attributes.put(key, value);
     }
+
+    public void setAttributes(Map<String, String> attributes) {
+        this.attributes = attributes;
+    }
     
     public String toBibTex() {
         return BibTexParser.toBibTex(this);
