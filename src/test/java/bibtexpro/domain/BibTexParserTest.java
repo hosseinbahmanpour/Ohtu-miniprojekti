@@ -23,7 +23,7 @@ public class BibTexParserTest {
     public void setUp() {
         Map<String,String> map = new HashMap<>();
         map.put("type", "Book");
-        map.put("id", "testiId");
+        map.put("refId", "testiId");
         map.put("title", "testiKirja");
         map.put("author", "Meikalainen, Matti");
         map.put("year", "2017");

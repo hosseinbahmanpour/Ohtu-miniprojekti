@@ -21,7 +21,7 @@ public class ReferenceTest {
     public void setUp() {
         this.map = new HashMap<>();
         map.put("type", "Book");
-        map.put("id", "testiId");
+        map.put("refId", "testiId");
         map.put("title", "testiKirja");
         map.put("author", "Meikalainen, Matti");
         map.put("year", "2017");
@@ -35,7 +35,7 @@ public class ReferenceTest {
 
     @Test
     public void testConstructorAddsId() {
-        assertEquals("testiId", ref.getId());
+        assertEquals("testiId", ref.getRefId());
     }
 
     @Test

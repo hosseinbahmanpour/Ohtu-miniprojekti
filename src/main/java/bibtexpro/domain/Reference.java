@@ -1,31 +1,36 @@
 package bibtexpro.domain;
 
 import java.util.Map;
+import org.springframework.data.annotation.Id;
 
 public class Reference {
     
+    @Id
+    private String refId;
+    
     private Map<String, String> attributes;
     private String type;
-    private String id;
+    
+    public Reference() {}
 
     public Reference(Map<String, String> inputFields) {
         this.type = inputFields.get("type");
         inputFields.remove("type");
-        this.id = inputFields.get("id");
-        inputFields.remove("id");
+        this.refId = inputFields.get("refId");
+        inputFields.remove("refId");
         this.attributes = inputFields;
     }
 
-    public String getId() {
-        return id;
+    public String getRefId() {
+        return refId;
     }
 
     public String getType() {
         return type;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setrefId(String refId) {
+        this.refId = refId;
     }
 
     public Map<String, String> getAttributes() {
