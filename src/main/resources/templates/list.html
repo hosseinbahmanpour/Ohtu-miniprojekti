@@ -16,15 +16,20 @@
          	   	<th class="tg-yw4l">Type</th>
          	 	<th class="tg-yw4l">Id</th>
          		<th class="tg-yw4l">Author</th>
-<th class="tg-yw4l">Title</th>
-<th class="tg-yw4l">Year</th>
+			<th class="tg-yw4l">Title</th>
+			<th class="tg-yw4l">Year</th>
        	 	</tr>
         	<tr th:each="reference : ${references}">
        			<td class="tg-yw4l" th:text="${reference.type}">Type</td>
             		<td class="tg-yw4l" th:text="${reference.refId}">Id</td>
             		<td class="tg-yw4l" th:text="${reference.attributes['author']}">Author</td>
-<td class="tg-yw4l" th:text="${reference.attributes['title']}">Title</td>
-<td class="tg-yw4l" th:text="${reference.attributes['year']}">Year</td>
+			<td class="tg-yw4l" th:text="${reference.attributes['title']}">Title</td>
+			<td class="tg-yw4l" th:text="${reference.attributes['year']}">Year</td>
+			<td>
+                        	<form th:action="@{/list/{refId}(refId=${reference.refId})}" th:method="DELETE">
+                           		<input type="submit" value="Delete" th:id="${'remove-' + reference.refId}"/>
+                        	</form>
+                    	</td>
         	</tr>
     	</table>
 </body>

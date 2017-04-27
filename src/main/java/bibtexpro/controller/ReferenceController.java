@@ -31,6 +31,12 @@ public class ReferenceController {
         return "redirect:/";
     }
 
+    @RequestMapping(value = "list/{id}", method = RequestMethod.DELETE)
+    public String deleteReference(@PathVariable String id) {
+        referenceRepository.delete(id);
+        return "redirect:/list";
+    }
+
     @RequestMapping(value = "/addbook", method = RequestMethod.GET)
     public String addBook(Model model) {
         return "addbook";
