@@ -1,6 +1,7 @@
 package bibtexpro.domain;
 
 import java.util.Map;
+import java.util.HashMap;
 import org.springframework.data.annotation.Id;
 
 public class Reference {
@@ -18,7 +19,15 @@ public class Reference {
         inputFields.remove("type");
         this.refId = inputFields.get("refId");
         inputFields.remove("refId");
-        this.attributes = inputFields;
+        
+        attributes = new HashMap<>();
+        for(Map.Entry<String,String> entry : inputFields.entrySet()){
+            String key = entry.getKey();
+            String val = entry.getValue().trim();
+            if(!val.isEmpty()){
+                attributes.put(key,val);
+            }
+        }
     }
 
     public String getRefId() {
@@ -47,6 +56,10 @@ public class Reference {
     
     public String toBibTex() {
         return BibTexParser.toBibTex(this);
+    }
+    
+    public boolean valid() {
+        return true;
     }
     
 }

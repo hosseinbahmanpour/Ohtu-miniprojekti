@@ -1,6 +1,7 @@
 package bibtexpro.controller;
 
 import bibtexpro.domain.Reference;
+import bibtexpro.validation.ReferenceValidator;
 import bibtexpro.repository.ReferenceRepository;
 import java.util.List;
 import java.util.Map;
@@ -22,13 +23,18 @@ public class ReferenceController {
 
     @Autowired
     private ReferenceRepository referenceRepository;
-
+    
     @RequestMapping(value = "/addreference", method = RequestMethod.POST)
     public String createNewReference(@RequestParam Map<String, String> allRequestParams) {
         
         Reference newRef = new Reference(allRequestParams);
-        referenceRepository.save(newRef);
-        return "redirect:/";
+        ReferenceValidator referenceValidator = new ReferenceValidator();
+        if(referenceValidator.validate(newRef)){
+            referenceRepository.save(newRef);
+            return "redirect:/";
+        } else {
+            return "redirect:/error";
+        }
     }
 
     @RequestMapping(value = "list/{id}", method = RequestMethod.DELETE)
