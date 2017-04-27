@@ -78,6 +78,12 @@ public class Stepdefs {
     public void index_page_is_selected() throws Throwable {
         getFrontPage();
     }
+    
+    @Given("^there is a book in the reference library with the Id \"([^\"]*)\", Title \"([^\"]*)\", Author \"([^\"]*)\", year \"([^\"]*)\", Publisher \"([^\"]*)\"$")
+    public void there_is_a_book_in_the_reference_library_with_the_Id_Title_Author_year_Publisher(String id, String title, String author, String year, String publisher) throws Throwable {
+        getFrontPage();
+        add_book_with_Id_Title_Author_year(id, title, author, year, publisher);
+    }
 
     @When("^\"([^\"]*)\" reference is selected$")
     public void reference_is_selected(String ref) throws Throwable {
@@ -134,6 +140,19 @@ public class Stepdefs {
         selectElementById("title").sendKeys(title);
         selectElementById("author").sendKeys(author);
         selectElementById("year").sendKeys(year);
+
+        selectElementById("submitButton").click();
+    }
+
+    @When("^I add a book reference with the Id \"([^\"]*)\", Title \"([^\"]*)\", Author \"([^\"]*)\", year \"([^\"]*)\", Publisher \"([^\"]*)\"$")
+    public void add_book_with_Id_Title_Author_year(String id, String title, String author, String year, String publisher) throws Throwable {
+        selectReferenceType("Book");
+        WebElement form = driver.findElement(By.id("refId"));
+        form.sendKeys(id);
+        selectElementById("title").sendKeys(title);
+        selectElementById("author").sendKeys(author);
+        selectElementById("year").sendKeys(year);
+        selectElementById("publisher").sendKeys(publisher);
 
         selectElementById("submitButton").click();
     }
@@ -259,6 +278,17 @@ public class Stepdefs {
         selectElementById("submitButton").click();
         //form.submit();
     }
+    @When("^I add a book reference with the Id \"([^\"]*)\", Title \"([^\"]*)\", Author \"([^\"]*)\", year \"([^\"]*)\",Publisher \"([^\"]*)\"$")
+    public void i_add_a_book_reference_with_the_Id_Title_Author_year_Publisher(String id, String title, String authorEditor, String year, String publisher) throws Throwable {
+        selectReferenceType("Book");
+        WebElement form = driver.findElement(By.id("refId"));
+        form.sendKeys(id);
+        selectElementById("author").sendKeys(authorEditor);
+        selectElementById("title").sendKeys(title);
+        selectElementById("publisher").sendKeys(publisher);
+        selectElementById("year").sendKeys(year);
+        selectElementById("submitButton").click();
+    }
 
     @Then("^the book \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\" should have been added$")
     public void book_should_have_been_added(String id, String title, String author, String year) throws Throwable {
@@ -336,6 +366,15 @@ public class Stepdefs {
         assertTrue(contains(title));
         assertTrue(contains(author));
         assertTrue(contains(year));
+    }
+
+    @Then("^a BibTeX file with the contents of Id \"([^\"]*)\", Title \"([^\"]*)\", Author \"([^\"]*)\", year \"([^\"]*)\", Publisher \"([^\"]*)\" should have been created$")
+    public void a_BibTeX_file_with_the_contents_of_Id_Title_Author_year_Publisher_should_have_been_created(String id, String title, String author, String year, String publisher) throws Throwable {
+        assertTrue(contains(id));
+        assertTrue(contains(title));
+        assertTrue(contains(author));
+        assertTrue(contains(year));
+        assertTrue(contains(publisher));
     }
 
     @Given("^there is a book in the reference library with the Id \"([^\"]*)\", Title \"([^\"]*)\", Author \"([^\"]*)\", year \"([^\"]*)\"$")

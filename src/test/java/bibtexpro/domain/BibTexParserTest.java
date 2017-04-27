@@ -48,7 +48,6 @@ public class BibTexParserTest {
         this.ref = new Reference(map);
         
         String output = BibTexParser.toBibTex(ref);
-        System.out.println(output);
         assertTrue(output.startsWith("@Book{testiId,\n"));
         assertTrue(output.contains("year = {2017},\n"));
         assertTrue(output.contains("author = {Meik\\\"{a}l\\\"{o}inen, M\\\'{a}tti},\n"));
