@@ -83,6 +83,18 @@ public class Stepdefs {
         return s.substring(0,1).toUpperCase() + s.substring(1).toLowerCase();
     }
     
+    private String findFromAttributes(String attribute, List<String> attributes){
+        for(String att : attributes){
+            String[] split = att.split(": ");
+            String key = split[0];
+            String value = split[1];
+            if(key.equals(attribute)){
+                return value;
+            }
+        }
+        return null;
+    }
+    
     @Given("^I have a form for adding an? (.+) available$")
     public void i_have_a_form_for_adding_a_reference_available(String type) throws Throwable{
         getFrontPage();
@@ -98,6 +110,19 @@ public class Stepdefs {
     @Given("^the index page is selected$")
     public void the_index_page_is_selected() throws Throwable{
         getFrontPage();
+    }
+    
+    @Given("^an? (.+) reference exists in the database with the following attributes: (.*)")
+    public void a_reference_exists_in_the_database_with_the_following_attributes(String type, List<String> attributes) throws Throwable{
+        i_have_a_form_for_adding_a_reference_available(type);
+        i_add_a_reference_with_the_following_attributes(attributes);
+    }
+    
+    @When("^I remove an? .+ reference with the following attributes: (.*)")
+    public void i_remove_a_reference_with_the_following_attributes(List<String> attributes) throws Throwable{
+        getReferenceListing();
+        String id = findFromAttributes("refId", attributes);
+        selectElementById("remove-"+id).click();
     }
     
     @When("an? (.+) reference is selected$")
@@ -147,6 +172,29 @@ public class Stepdefs {
             assertFalse(contains(field));
         }
     }
+    
+    @Then("^an? (.+) with the following attributes should not exist: (.*)$")
+    public void a_reference_with_the_following_attributes_should_not_exist(String type, List<String> attributes) throws Throwable{
+        getBibTexFile();
+        assertFalse(containsCaseInsensitive(type));
+        for(String att : attributes){
+            String field = att.split(": ")[1];  
+            assertFalse(contains(field));
+        }
+    }
+    
+    /*private boolean referenceExists(String type, List<String> attributes){
+        if(!containsCaseInsensitive(type)){
+            return false;
+        }
+        for(String att : attributes){
+            String field = att.split(": ")[1];  
+            if(!contains(field)){
+                return false;
+            }
+        }
+        return true;
+    }*/
     
     @Then("^a BibTeX file containing an? (.+) with the following attributes should have been created: (.*)$")
     public void a_bibtex_file_with_the_following_fields_should_have_been_created(String type, List<String> attributes) throws Throwable{
