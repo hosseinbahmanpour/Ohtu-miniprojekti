@@ -64,8 +64,8 @@ public class ReferenceController {
         return "list";
     }
 
-    @RequestMapping("/list/{id}")
-    public String show(Model model, @PathVariable int id) {
+    @RequestMapping(value = "/list/{id}", method = RequestMethod.GET)
+    public String show(Model model, @PathVariable String id) {
         model.addAttribute("reference", referenceRepository.findByRefId(""+id));
         //show a single reference with all info, search by id.
         return "referenceView";
