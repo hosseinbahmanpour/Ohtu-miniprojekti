@@ -9,6 +9,7 @@ import cucumber.api.java.en.When;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.List;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -74,313 +75,89 @@ public class Stepdefs {
         return driver.getPageSource().contains(content);
     }
 
-    @Given("^index page is selected$")
-    public void index_page_is_selected() throws Throwable {
+    private boolean containsCaseInsensitive(String content) {
+        return org.apache.commons.lang3.StringUtils.containsIgnoreCase(driver.getPageSource(), content);
+    }
+    
+    private String capitalize(String s){
+        return s.substring(0,1).toUpperCase() + s.substring(1).toLowerCase();
+    }
+    
+    @Given("^I have a form for adding an? (.+) available$")
+    public void i_have_a_form_for_adding_a_reference_available(String type) throws Throwable{
+        getFrontPage();
+        selectReferenceType(capitalize(type));       
+    }
+    
+    @Given("^an? (.+) reference with the following attributes has been added: (.*)$")
+    public void a_reference_has_been_added(String type, List<String> attributes) throws Throwable{
+        i_have_a_form_for_adding_a_reference_available(type);
+        i_add_a_reference_with_the_following_attributes(attributes);
+    }
+    
+    @Given("^the index page is selected$")
+    public void the_index_page_is_selected() throws Throwable{
         getFrontPage();
     }
     
-    @Given("^there is a book in the reference library with the Id \"([^\"]*)\", Title \"([^\"]*)\", Author \"([^\"]*)\", year \"([^\"]*)\", Publisher \"([^\"]*)\"$")
-    public void there_is_a_book_in_the_reference_library_with_the_Id_Title_Author_year_Publisher(String id, String title, String author, String year, String publisher) throws Throwable {
-        getFrontPage();
-        add_book_with_Id_Title_Author_year(id, title, author, year, publisher);
+    @When("an? (.+) reference is selected$")
+    public void a_reference_is_selected(String type) throws Throwable{
+        selectReferenceType(capitalize(type));
     }
-
-    @When("^\"([^\"]*)\" reference is selected$")
-    public void reference_is_selected(String ref) throws Throwable {
-        selectReferenceType(ref);
-    }
-
-    // TODO: skip?
-    @Then("^the input fields \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\" exist$")
-    public void the_input_fields_exist(String arg1, String arg2, String arg3, String arg4, String arg5) throws Throwable {
-
-    }
-
-    // TODO: skip?
-    @Then("^the input fields \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\" exist$")
-    public void the_input_fields_exist(String arg1, String arg2, String arg3, String arg4, String arg5, String arg6) throws Throwable {
-
-    }
-
-    @Given("^I have the required fields available to insert the data into$")
-    public void i_have_the_required_fields_available_to_insert_the_data_into() throws Throwable {
-        getFrontPage();
-    }
-
-    @When("^I add an article reference with the Id \"([^\"]*)\", Author \"([^\"]*)\", Title \"([^\"]*)\", Journal \"([^\"]*)\", year \"([^\"]*)\", Volume \"([^\"]*)\"$")
-    public void add_article_with_Id_Author_Title_Journal_year_Volume(String id, String author, String title, String journal, String year, String volume) throws Throwable {
-        selectReferenceType("Article");
-        WebElement form = driver.findElement(By.id("refId"));
-        form.sendKeys(id);
-
-        selectElementById("author").sendKeys(author);
-        selectElementById("title").sendKeys(title);
-        selectElementById("journal").sendKeys(journal);
-        selectElementById("year").sendKeys(year);
-        selectElementById("volume").sendKeys(volume);
-        form.submit();
-    }
-
-    @Then("^the article \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\" should have been added$")
-    public void article_should_have_been_added(String id, String author, String title, String journal, String year, String volume) throws Throwable {
-        getBibTexFile();
-        assertTrue(contains(id));
-        assertTrue(contains(author));
-        assertTrue(contains(title));
-        assertTrue(contains(journal));
-        assertTrue(contains(year));
-        assertTrue(contains(volume));
-    }
-
-    @When("^I add a book reference with the Id \"([^\"]*)\", Title \"([^\"]*)\", Author \"([^\"]*)\", year \"([^\"]*)\"$")
-    public void add_book_with_Id_Title_Author_year(String id, String title, String author, String year) throws Throwable {
-        selectReferenceType("Book");
-        WebElement form = driver.findElement(By.id("refId"));
-        form.sendKeys(id);
-        selectElementById("title").sendKeys(title);
-        selectElementById("author").sendKeys(author);
-        selectElementById("year").sendKeys(year);
-
+    
+    @When("^I add an? .+ reference with the following attributes: (.*)$")
+    public void i_add_a_reference_with_the_following_attributes(List<String> attributes) throws Throwable{
+        for(String attribute : attributes){
+            String[] split = attribute.split(": ");
+            String key = split[0];
+            String value = split[1];
+            selectElementById(key).sendKeys(value);
+        }
         selectElementById("submitButton").click();
     }
 
-    @When("^I add a book reference with the Id \"([^\"]*)\", Title \"([^\"]*)\", Author \"([^\"]*)\", year \"([^\"]*)\", Publisher \"([^\"]*)\"$")
-    public void add_book_with_Id_Title_Author_year(String id, String title, String author, String year, String publisher) throws Throwable {
-        selectReferenceType("Book");
-        WebElement form = driver.findElement(By.id("refId"));
-        form.sendKeys(id);
-        selectElementById("title").sendKeys(title);
-        selectElementById("author").sendKeys(author);
-        selectElementById("year").sendKeys(year);
-        selectElementById("publisher").sendKeys(publisher);
-
-        selectElementById("submitButton").click();
-    }
-
-    @When("^I add a book reference with the Id \"([^\"]*)\", Author/Editor \"([^\"]*)\", Title \"([^\"]*)\", Publisher \"([^\"]*)\", year \"([^\"]*)\", Volume/Number \"([^\"]*)\"$")
-    public void add_book_with_Id_Author_Editor_Title_Publisher_year_Volume_Number(String id, String authorEditor, String title, String publisher, String year, String volumeNumber) throws Throwable {
-        selectReferenceType("Book");
-        WebElement form = driver.findElement(By.id("refId"));
-        form.sendKeys(id);
-        selectElementById("author").sendKeys(authorEditor);
-        selectElementById("title").sendKeys(title);
-        selectElementById("publisher").sendKeys(publisher);
-        selectElementById("year").sendKeys(year);
-        selectElementById("volume").sendKeys(volumeNumber);
-        
-        selectElementById("submitButton").click();
-    }
-
-    @When("^I add a book reference with the Id \"([^\"]*)\", Author/Editor \"([^\"]*)\", Title \"([^\"]*)\", Publisher \"([^\"]*)\", year \"([^\"]*)\", Address \"([^\"]*)\"$")
-    public void add_book_with_Id_Author_Editor_Title_Publisher_year_Address(String id, String authorEditor, String title, String publisher, String year, String address) throws Throwable {
-        selectReferenceType("Book");
-        WebElement form = driver.findElement(By.id("refId"));
-        form.sendKeys(id);
-        selectElementById("author").sendKeys(authorEditor);
-        selectElementById("title").sendKeys(title);
-        selectElementById("publisher").sendKeys(publisher);
-        selectElementById("year").sendKeys(year);
-        selectElementById("address").sendKeys(address);
-
-        selectElementById("submitButton").click();
-    }
-
-    @When("^I add a book reference with the Id \"([^\"]*)\", Author/Editor \"([^\"]*)\", Title \"([^\"]*)\", Publisher \"([^\"]*)\", year \"([^\"]*)\"$")
-    public void add_book_with_Id_Author_Editor_Title_Publisher_year(String id, String authorEditor, String title, String publisher, String year) throws Throwable {
-        selectReferenceType("Book");
-        WebElement form = driver.findElement(By.id("refId"));
-        form.sendKeys(id);
-        selectElementById("author").sendKeys(authorEditor);
-        selectElementById("title").sendKeys(title);
-        selectElementById("publisher").sendKeys(publisher);
-        selectElementById("year").sendKeys(year);
-
-        selectElementById("submitButton").click();
-    }
-
-    @When("^I add a book reference with the Id \"([^\"]*)\", Author/Editor \"([^\"]*)\", Title \"([^\"]*)\", Publisher \"([^\"]*)\", year \"([^\"]*)\", Key \"([^\"]*)\"$")
-    public void add_book_with_Id_Author_Editor_Title_Publisher_year_Key(String id, String authorEditor, String title, String publisher, String year, String key) throws Throwable {
-        selectReferenceType("Book");
-        WebElement form = driver.findElement(By.id("refId"));
-        form.sendKeys(id);
-        selectElementById("author").sendKeys(authorEditor);
-        selectElementById("title").sendKeys(title);
-        selectElementById("publisher").sendKeys(publisher);
-        selectElementById("year").sendKeys(year);
-        selectElementById("key").sendKeys(key);
-
-        selectElementById("submitButton").click();
-    }
-
-    @When("^I add a book reference with the Id \"([^\"]*)\", Author/Editor \"([^\"]*)\", Title \"([^\"]*)\", Publisher \"([^\"]*)\", year \"([^\"]*)\", Edition \"([^\"]*)\"$")
-    public void add_book_with_Id_Author_Editor_Title_Publisher_year_Edition(String id, String authorEditor, String title, String publisher, String year, String edition) throws Throwable {
-        selectReferenceType("Book");
-        WebElement form = driver.findElement(By.id("refId"));
-        form.sendKeys(id);
-        selectElementById("author").sendKeys(authorEditor);
-        selectElementById("title").sendKeys(title);
-        selectElementById("publisher").sendKeys(publisher);
-        selectElementById("year").sendKeys(year);
-        selectElementById("edition").sendKeys(edition);
-
-        selectElementById("submitButton").click();
-    }
-
-    @When("^I add a book reference with the Id \"([^\"]*)\", Author/Editor \"([^\"]*)\", Title \"([^\"]*)\", Publisher \"([^\"]*)\", year \"([^\"]*)\", Series \"([^\"]*)\"$")
-    public void add_book_with_Id_Author_Editor_Title_Publisher_year_Series(String id, String authorEditor, String title, String publisher, String year, String series) throws Throwable {
-        selectReferenceType("Book");
-        WebElement form = driver.findElement(By.id("refId"));
-        form.sendKeys(id);
-        selectElementById("author").sendKeys(authorEditor);
-        selectElementById("title").sendKeys(title);
-        selectElementById("publisher").sendKeys(publisher);
-        selectElementById("year").sendKeys(year);
-        selectElementById("series").sendKeys(series);
-
-        selectElementById("submitButton").click();
-    }
-
-    @When("^I add a book reference with the Id \"([^\"]*)\", Author/Editor \"([^\"]*)\", Title \"([^\"]*)\", Publisher \"([^\"]*)\", year \"([^\"]*)\", Month \"([^\"]*)\"$")
-    public void add_book_with_Id_Author_Editor_Title_Publisher_year_Month(String id, String authorEditor, String title, String publisher, String year, String month) throws Throwable {
-        selectReferenceType("Book");
-        WebElement form = driver.findElement(By.id("refId"));
-        form.sendKeys(id);
-        selectElementById("author").sendKeys(authorEditor);
-        selectElementById("title").sendKeys(title);
-        selectElementById("publisher").sendKeys(publisher);
-        selectElementById("year").sendKeys(year);
-        selectElementById("month").sendKeys(month);
-
-        selectElementById("submitButton").click();
-    }
-
-    @When("^I add a book reference with the Id \"([^\"]*)\", Title \"([^\"]*)\", Publisher \"([^\"]*)\", year \"([^\"]*)\"$")
-    public void add_book_with_Id_Title_Publisher_year(String id, String title, String publisher, String year) throws Throwable {
-        selectReferenceType("Book");
-        WebElement form = driver.findElement(By.id("refId"));
-        form.sendKeys(id);
-        selectElementById("title").sendKeys(title);
-        selectElementById("publisher").sendKeys(publisher);
-        selectElementById("year").sendKeys(year);
-        selectElementById("submitButton").click();
-    }
-
-    @When("^I add a book reference with the Id \"([^\"]*)\", Author/Editor \"([^\"]*)\", Title \"([^\"]*)\", Publisher \"([^\"]*)\", year \"([^\"]*)\", Note \"([^\"]*)\"$")
-    public void add_book_with_Id_Author_Editor_Title_Publisher_year_Note(String id, String authorEditor, String title, String publisher, String year, String note) throws Throwable {
-        selectReferenceType("Book");
-        WebElement form = driver.findElement(By.id("refId"));
-        form.sendKeys(id);
-        selectElementById("author").sendKeys(authorEditor);
-        selectElementById("title").sendKeys(title);
-        selectElementById("publisher").sendKeys(publisher);
-        selectElementById("year").sendKeys(year);
-        selectElementById("note").sendKeys(note);
-        selectElementById("submitButton").click();
-        //form.submit();
-    }
-    @When("^I add a book reference with the Id \"([^\"]*)\", Title \"([^\"]*)\", Author \"([^\"]*)\", year \"([^\"]*)\",Publisher \"([^\"]*)\"$")
-    public void i_add_a_book_reference_with_the_Id_Title_Author_year_Publisher(String id, String title, String authorEditor, String year, String publisher) throws Throwable {
-        selectReferenceType("Book");
-        WebElement form = driver.findElement(By.id("refId"));
-        form.sendKeys(id);
-        selectElementById("author").sendKeys(authorEditor);
-        selectElementById("title").sendKeys(title);
-        selectElementById("publisher").sendKeys(publisher);
-        selectElementById("year").sendKeys(year);
-        selectElementById("submitButton").click();
-    }
-
-    @Then("^the book \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\" should have been added$")
-    public void book_should_have_been_added(String id, String title, String author, String year) throws Throwable {
-        getBibTexFile();
-        assertTrue(contains(id));
-        assertTrue(contains(title));
-        assertTrue(contains(author));
-        assertTrue(contains(year));
-    }
-
-    @Then("^the book \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\" should have been added$")
-    public void book_should_have_been_added(String id, String title, String author, String year, String arg5, String arg6) throws Throwable {
-        getBibTexFile();
-        book_should_have_been_added(id, title, author, year);
-        assertTrue(contains(arg5));
-        assertTrue(contains(arg6));
-    }
-
-    @Then("^the reference \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\" should have been added$")
-    public void the_reference_should_have_been_added(String arg1, String arg2, String arg3, String arg4, String arg5, String arg6) throws Throwable {
-        getBibTexFile();
-        assertTrue(contains(arg1));
-        assertTrue(contains(arg2));
-        assertTrue(contains(arg3));
-        assertTrue(contains(arg4));
-        assertTrue(contains(arg5));
-        assertTrue(contains(arg6));
-    }
-
-    @Then("^the book \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\" should have been added$")
-    public void the_book_should_have_been_added(String arg1, String arg2, String arg3, String arg4, String arg5) throws Throwable {
-        the_reference_should_have_been_added(arg1, arg2, arg3, arg4, arg5, arg5);
-    }
-
-    @Then("^the book \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\" should not have been added$")
-    public void the_book_should_not_have_been_added(String arg1, String arg2, String arg3, String arg4) throws Throwable {
-        getBibTexFile();
-        System.out.println(driver.getPageSource());
-        assertFalse(contains(arg1));
-        assertFalse(contains(arg2));
-        assertFalse(contains(arg3));
-        assertFalse(contains(arg4));
-    }
-
-    @When("^I add an Inproceeding reference with the Id \"([^\"]*)\", Author \"([^\"]*)\", Title \"([^\"]*)\", Booktitle \"([^\"]*)\", year \"([^\"]*)\"$")
-    public void add_inproceeding_with_the_Id_Author_Title_Booktitle_year(String id, String author, String title, String booktitle, String year) throws Throwable {
-        selectReferenceType("Inproceeding");
-        WebElement form = driver.findElement(By.id("refId"));
-        form.sendKeys(id);
-        selectElementById("author").sendKeys(author);
-        selectElementById("title").sendKeys(title);
-        selectElementById("booktitle").sendKeys(booktitle);
-        selectElementById("year").sendKeys(year);
-        selectElementById("submitButton").click();
-    }
-
-    @Then("^the inproceeding \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\" should have been added$")
-    public void inproceeding_should_have_been_added(String id, String author, String title, String booktitle, String year) throws Throwable {
-        getBibTexFile();
-        assertTrue(contains(id));
-        assertTrue(contains(author));
-        assertTrue(contains(title));
-        assertTrue(contains(booktitle));
-        assertTrue(contains(year));
-    }
-
-    @When("^I export the book reference$")
-    public void export_book_reference() throws Throwable {
+    @When("^I export the BibTeX file$")
+    public void i_export_the_bibtex_file() throws Throwable {
         getBibTexFile();
     }
-
-    @Then("^a BibTeX file with the contents of Id \"([^\"]*)\", Title \"([^\"]*)\", Author \"([^\"]*)\", year \"([^\"]*)\" should have been created$")
-    public void bibtex_file_should_have_been_created(String id, String title, String author, String year) throws Throwable {
-        assertTrue(contains(id));
-        assertTrue(contains(title));
-        assertTrue(contains(author));
-        assertTrue(contains(year));
+    
+    @Then("^the following input fields should be visible: (.*)$")
+    public void the_following_input_fields_should_be_visible(List<String> fields) throws Throwable{
+        for(String field : fields){
+            assertTrue(contains(field));
+        }
     }
-
-    @Then("^a BibTeX file with the contents of Id \"([^\"]*)\", Title \"([^\"]*)\", Author \"([^\"]*)\", year \"([^\"]*)\", Publisher \"([^\"]*)\" should have been created$")
-    public void a_BibTeX_file_with_the_contents_of_Id_Title_Author_year_Publisher_should_have_been_created(String id, String title, String author, String year, String publisher) throws Throwable {
-        assertTrue(contains(id));
-        assertTrue(contains(title));
-        assertTrue(contains(author));
-        assertTrue(contains(year));
-        assertTrue(contains(publisher));
+    
+    @Then("^an? (.+) with the following attributes should have been added: (.*)$")
+    public void a_reference_with_the_following_attributes_should_have_been_added(String type, List<String> attributes) throws Throwable{
+        getBibTexFile();
+        if(!containsCaseInsensitive(type)) System.out.println("!!!!!!!!!!"+type+"!!!!!!!!!!!");
+        if(!containsCaseInsensitive(type)) System.out.println("Täs"+driver.getPageSource());
+        assertTrue(containsCaseInsensitive(type));
+        for(String att : attributes){
+            String field = att.split(": ")[1];
+            if(!contains(field)) System.out.println("!!!!!!!!!!"+field+"!!!!!!!!!!!");
+            assertTrue(contains(field));
+        }
     }
-
-    @Given("^there is a book in the reference library with the Id \"([^\"]*)\", Title \"([^\"]*)\", Author \"([^\"]*)\", year \"([^\"]*)\"$")
-    public void there_is_a_book_in_the_reference_library_with_the_Id_Title_Author_year(String id, String title, String author, String year) throws Throwable {
-        getFrontPage();
-        add_book_with_Id_Title_Author_year(id, title, author, year);
+    
+    @Then("^an? (.+) with the following attributes should not have been added: (.*)$")
+    public void a_reference_with_the_following_attributes_should_not_have_been_added(String type, List<String> attributes) throws Throwable{
+        getBibTexFile();
+        assertFalse(containsCaseInsensitive(type));
+        for(String att : attributes){
+            String field = att.split(": ")[1];  
+            assertFalse(contains(field));
+        }
+    }
+    
+    @Then("^a BibTeX file containing an? (.+) with the following attributes should have been created: (.*)$")
+    public void a_bibtex_file_with_the_following_fields_should_have_been_created(String type, List<String> attributes) throws Throwable{
+        assertTrue(containsCaseInsensitive(type));
+        for(String att : attributes){
+            String field = att.split(": ")[1];
+            assertTrue(contains(field));
+        }
     }
 
     @After

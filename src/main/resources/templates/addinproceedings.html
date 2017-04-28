@@ -5,7 +5,7 @@
 </head>
 <body>
     <form action="#" th:action="@{/addreference}" th:object="${test}" method="post">
-        <input type="hidden" id="type" value="Inproceeding" name="type"/>
+        <input type="hidden" id="type" value="Inproceedings" name="type"/>
         * Id: <br/>
         <input type="text" id="refId" name="refId" required="" /> <br/>
         * Author: <br/>
@@ -25,7 +25,7 @@
         Pages: <br/>
         <input type="text" id="pages" name="pages" pattern="[0-9]*(--[0-9]*)?" /> <br/>
         Address: <br/>
-        <input type="text" id="addres" name="address" /> <br/>
+        <input type="text" id="address" name="address" /> <br/>
         Month: <br/>
         <input type="text" id="month" name="month" /> <br/>
         Organization: <br/>

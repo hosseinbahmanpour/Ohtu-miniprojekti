@@ -53,9 +53,9 @@ public class ReferenceController {
         return "addarticle";
     }
 
-    @RequestMapping(value = "/addinproceeding", method = RequestMethod.GET)
-    public String addInproceeding(Model model) {
-        return "addinproceeding";
+    @RequestMapping(value = "/addinproceedings", method = RequestMethod.GET)
+    public String addInproceedings(Model model) {
+        return "addinproceedings";
     }
    
     @RequestMapping("/list")

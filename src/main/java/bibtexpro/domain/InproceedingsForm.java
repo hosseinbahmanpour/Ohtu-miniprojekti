@@ -2,7 +2,7 @@ package bibtexpro.domain;
 
 import javax.validation.constraints.NotNull;
 
-public class InproceedingForm {
+public class InproceedingsForm {
     
     @NotNull
     private String refId;

@@ -16,12 +16,12 @@ public class ReferenceValidator {
     public ReferenceValidator(){
         TypeValidator bookValidator = createBookValidator();
         TypeValidator articleValidator = createArticleValidator();
-        TypeValidator inproceedingValidator = createInproceedingValidator();
+        TypeValidator inproceedingsValidator = createInproceedingsValidator();
         
         validators = new HashMap<>();
         validators.put("Book", bookValidator);
         validators.put("Article", articleValidator);
-        validators.put("Inproceeding", inproceedingValidator);
+        validators.put("Inproceedings", inproceedingsValidator);
     }
     
     public boolean validate(Reference ref){
@@ -70,8 +70,8 @@ public class ReferenceValidator {
         return articleValidator;
     }
     
-    private TypeValidator createInproceedingValidator(){
-        TypeValidator inproceedingValidator = new TypeValidator(
+    private TypeValidator createInproceedingsValidator(){
+        TypeValidator inproceedingsValidator = new TypeValidator(
             new String[]{
                 "author",
                 "title",
@@ -83,13 +83,13 @@ public class ReferenceValidator {
                 "series",
                 "pages",
                 "address",
-                "edition",
                 "month",
-                "year",
+                "organization",
+                "publisher",
                 "note",
                 "key"}
         );
-        return inproceedingValidator;
+        return inproceedingsValidator;
     }
     
     
