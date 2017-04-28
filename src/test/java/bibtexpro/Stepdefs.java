@@ -131,12 +131,9 @@ public class Stepdefs {
     @Then("^an? (.+) with the following attributes should have been added: (.*)$")
     public void a_reference_with_the_following_attributes_should_have_been_added(String type, List<String> attributes) throws Throwable{
         getBibTexFile();
-        if(!containsCaseInsensitive(type)) System.out.println("!!!!!!!!!!"+type+"!!!!!!!!!!!");
-        if(!containsCaseInsensitive(type)) System.out.println("Täs"+driver.getPageSource());
         assertTrue(containsCaseInsensitive(type));
         for(String att : attributes){
             String field = att.split(": ")[1];
-            if(!contains(field)) System.out.println("!!!!!!!!!!"+field+"!!!!!!!!!!!");
             assertTrue(contains(field));
         }
     }

@@ -44,10 +44,6 @@ public class TypeValidator {
     private boolean missingRequiredFields(Collection<String> fields){
         for(String requiredField : requiredFields){
             if(!fields.contains(requiredField)){
-                System.out.println(requiredField);
-                for(String f : fields){
-                    System.out.print(","+f);
-                }
                 return true;
             }
         }
