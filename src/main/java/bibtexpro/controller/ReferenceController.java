@@ -23,13 +23,13 @@ public class ReferenceController {
 
     @Autowired
     private ReferenceRepository referenceRepository;
-    
+
     @RequestMapping(value = "/addreference", method = RequestMethod.POST)
     public String createNewReference(@RequestParam Map<String, String> allRequestParams) {
-        
+
         Reference newRef = new Reference(allRequestParams);
         ReferenceValidator referenceValidator = new ReferenceValidator();
-        if(referenceValidator.validate(newRef)){
+        if (referenceValidator.validate(newRef)) {
             referenceRepository.save(newRef);
             return "redirect:/";
         } else {
@@ -57,7 +57,7 @@ public class ReferenceController {
     public String addInproceedings(Model model) {
         return "addinproceedings";
     }
-   
+
     @RequestMapping("/list")
     public String listReferences(Model model) {
         model.addAttribute("references", referenceRepository.findAll());
@@ -84,12 +84,11 @@ public class ReferenceController {
         headers.setContentLength(s.getBytes().length);
         return new ResponseEntity<>(s.getBytes(), headers, HttpStatus.CREATED);
     }
-    
-    @RequestMapping(value="/reset", method=RequestMethod.GET)
-    public String deleteAll(){
+
+    @RequestMapping(value = "/reset", method = RequestMethod.GET)
+    public String deleteAll() {
         referenceRepository.deleteAll();
         return "redirect:/";
     }
-    
-    
+
 }
