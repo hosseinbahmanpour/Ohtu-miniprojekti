@@ -55,6 +55,10 @@ public class Stepdefs {
     private void getReferenceListing() {
         driver.get(baseUrl + "/list");
     }
+    
+    private void getReferenceView(String id){
+        driver.get(baseUrl + "/list/"+id);
+    }
 
     private void getBibTexFile() throws Throwable {
         getFrontPage();
@@ -118,11 +122,17 @@ public class Stepdefs {
         i_add_a_reference_with_the_following_attributes(attributes);
     }
     
-    @When("^I remove an? .+ reference with the following attributes: (.*)")
+    @When("^I remove an? .+ reference with the following attributes: (.*)$")
     public void i_remove_a_reference_with_the_following_attributes(List<String> attributes) throws Throwable{
         getReferenceListing();
         String id = findFromAttributes("refId", attributes);
         selectElementById("remove-"+id).click();
+    }
+    
+    @When("^I view an? .+ reference with the following attributes: (.*)$")
+    public void i_view_a_reference_with_the_following_attributes(List<String> attributes) throws Throwable{
+        String id = findFromAttributes("refId", attributes);
+        getReferenceView(id);
     }
     
     @When("an? (.+) reference is selected$")
@@ -144,6 +154,15 @@ public class Stepdefs {
     @When("^I export the BibTeX file$")
     public void i_export_the_bibtex_file() throws Throwable {
         getBibTexFile();
+    }
+    
+    @Then("^an? (.+) with the following attributes should be visible: (.*)$")
+    public void a_reference_with_the_following_attributes_should_be_visible(String type, List<String> attributes){
+        assertTrue(containsCaseInsensitive(type));
+        for(String att : attributes){
+            String field = att.split(": ")[1];
+            assertTrue(contains(field));
+        }
     }
     
     @Then("^the following input fields should be visible: (.*)$")
