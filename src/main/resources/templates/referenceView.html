@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>BibTeX PRO</title>
+</head>
+<body>
+    
+    <table>  
+        <tr th:each="referenceField: ${reference.attributes}">
+            <td th:text="${referenceField.key}">empty</td>
+            <td th:text="${referenceField.value}">empty</td>
+        </tr>
+    </table>
+
+</body>
+</html>

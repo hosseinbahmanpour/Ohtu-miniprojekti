@@ -65,9 +65,10 @@ public class ReferenceController {
     }
 
     @RequestMapping("/list/{id}")
-    public String show(@PathVariable int id) {
+    public String show(Model model, @PathVariable int id) {
+        model.addAttribute("reference", referenceRepository.findByRefId(""+id));
         //show a single reference with all info, search by id.
-        return "redirect:/list";
+        return "referenceView";
     }
 
     @RequestMapping(value = "/bibtex", method = RequestMethod.GET)
