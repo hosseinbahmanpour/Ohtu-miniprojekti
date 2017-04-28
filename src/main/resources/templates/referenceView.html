@@ -5,7 +5,15 @@
 </head>
 <body>
     
-    <table>  
+    <table>
+        <tr>
+            <td>ID</td>
+            <td th:text = "${reference.refId}">id</td>
+        </tr>
+        <tr>
+            <td>Type</td>
+            <td th:text = "${reference.type}">Type</td>
+        </tr>
         <tr th:each="referenceField: ${reference.attributes}">
             <td th:text="${referenceField.key}">empty</td>
             <td th:text="${referenceField.value}">empty</td>
