@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 public interface ReferenceRepository extends MongoRepository<Reference, String> {
 
-    public Reference findByRefId();
+    public Reference findByRefId(String id);
     
     public Reference save(Reference ref);
     
