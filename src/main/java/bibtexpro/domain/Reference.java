@@ -28,6 +28,9 @@ public class Reference {
                 attributes.put(key,val);
             }
         }
+        
+        inputFields.put("type", type);
+        inputFields.put("refId", refId);
     }
 
     public String getRefId() {

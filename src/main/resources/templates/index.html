@@ -5,19 +5,18 @@
 </head>
 <body>
     <h1>Welcome to BibTeXPro</h1>
-    
     <a th:href="@{/bibtex}" id="bibtexLink" >Download BibTex-file</a><br/>
     <a th:href="@{/list}" id="listLink" >View entries as list</a><br/>
     <br/>
     
-    <select id="referenceType" onchange="formSwap()">
-        <option id="articleOption" value="article">
+    <select id="referenceType" onchange="formSwap()" >
+        <option id="articleOption" value="article" th:attr="selected=${Article != null}? 'true' : 'false'">
             Article
         </option>
-        <option id="bookOption" value="book">
+        <option id="bookOption" value="book" th:attr="selected=${Book != null}? 'true' : 'false'">
             Book
         </option>
-        <option id="inproceedingsOption" value="inproceedings">
+        <option id="inproceedingsOption" value="inproceedings" th:attr="selected=${Inproceedings != null}? 'true' : 'false'">
             Inproceedings
         </option>
     </select>

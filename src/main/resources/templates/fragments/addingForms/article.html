@@ -1,27 +1,27 @@
 
-<form th:fragment="form" action="#" th:action="@{/addreference}" th:object="${test}" method="post">
+<form th:fragment="form" action="#" th:action="@{/}" th:object="${test}" method="post">
     <input type="hidden" id="type" value="Article" name="type"/>
     * Id: <br/>
-    <input type="text" id="refId" name="refId" required="" /> <br/>
+    <input th:replace="fragments/addingForms/input :: required(${Article},'refId')" /> <br/>
     * Author: <br/>
-    <input type="text" id="author" name="author" required="" /> <br/>
+    <input th:replace="fragments/addingForms/input :: required(${Article},'author')" /> <br/>
     * Title: <br/>
-    <input type="text" id="title" name="title" required="" /> <br/>
+    <input th:replace="fragments/addingForms/input :: required(${Article},'title')" /> <br/>
     * Journal: <br/>
-    <input type="text" id="journal" name="journal" required="" /> <br/>
+    <input th:replace="fragments/addingForms/input :: required(${Article},'journal')" /> <br/>
     * Year: <br/>
-    <input type="text" id="year" name="year" pattern="[0-9]*" required="" /> <br/>
+    <input th:replace="fragments/addingForms/input :: requiredNum(${Article},'year')" /> <br/>
     * Volume: <br/>
-    <input type="text" id="volume" name="volume" pattern="[0-9]*" required="" /> <br/>
+    <input th:replace="fragments/addingForms/input :: requiredNum(${Article},'volume')" /> <br/>
     Number: <br/>
-    <input type="text" id="number" name="number" pattern="[0-9]*" /> <br/>
+    <input th:replace="fragments/addingForms/input :: optional(${Article},'number')" /> <br/>
     Pages: <br/>
-    <input type="text" id="pages" name="pages" pattern="[0-9]*(--[0-9]*)?" /> <br/>
+    <input th:replace="fragments/addingForms/input :: optionalRange(${Article},'pages')" /> <br/>
     Month: <br/>
-    <input type="text" id="month" name="month" /> <br/>
+    <input th:replace="fragments/addingForms/input :: optional(${Article},'month')" /> <br/>
     Note: <br/>
-    <input type="text" id="note" name="note" /> <br/>
+    <input th:replace="fragments/addingForms/input :: optional(${Article},'note')" /> <br/>
     Key: <br/>
-    <input type="text" id="key" name="key" /> <br/>
+    <input th:replace="fragments/addingForms/input :: optional(${Article},'key')" /> <br/>
     <input type="submit" id="submitButton" value="Add"/> *Required
 </form>
