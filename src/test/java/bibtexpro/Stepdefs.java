@@ -202,7 +202,7 @@ public class Stepdefs {
         }
     }
     
-    /*private boolean referenceExists(String type, List<String> attributes){
+    private boolean referenceExists(String type, List<String> attributes){
         if(!containsCaseInsensitive(type)){
             return false;
         }
@@ -213,7 +213,7 @@ public class Stepdefs {
             }
         }
         return true;
-    }*/
+    }
     
     @Then("^a BibTeX file containing an? (.+) with the following attributes should have been created: (.*)$")
     public void a_bibtex_file_with_the_following_fields_should_have_been_created(String type, List<String> attributes) throws Throwable{
