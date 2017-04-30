@@ -33,6 +33,7 @@ public class ReferenceController {
             referenceRepository.save(newRef);
             return "redirect:/";
         } else {
+            System.out.println("ERRORERROR");
             return "redirect:/error";
         }
     }
@@ -41,21 +42,6 @@ public class ReferenceController {
     public String deleteReference(@PathVariable String id) {
         referenceRepository.delete(id);
         return "redirect:/list";
-    }
-
-    @RequestMapping(value = "/addbook", method = RequestMethod.GET)
-    public String addBook(Model model) {
-        return "addbook";
-    }
-
-    @RequestMapping(value = "/addarticle", method = RequestMethod.GET)
-    public String addArticle(Model model) {
-        return "addarticle";
-    }
-
-    @RequestMapping(value = "/addinproceedings", method = RequestMethod.GET)
-    public String addInproceedings(Model model) {
-        return "addinproceedings";
     }
 
     @RequestMapping("/list")

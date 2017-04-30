@@ -1,0 +1,35 @@
+
+<form th:fragment="form" action="#" th:action="@{/addreference}" th:object="${test}" method="post">
+    <input type="hidden" id="type" value="Inproceedings" name="type"/>
+    * Id: <br/>
+    <input type="text" id="refId" name="refId" required="" /> <br/>
+    * Author: <br/>
+    <input type="text" id="author" name="author" required="" /> <br/>
+    * Title: <br/>
+    <input type="text" id="title" name="title" required="" /> <br/>
+    * Booktitle: <br/>
+    <input type="text" id="booktitle" name="booktitle" required="" /> <br/>
+    * Year: <br/>
+    <input type="text" id="year" name="year" pattern="[0-9]*" required="" /> <br/>
+    Editor: <br/>
+    <input type="text" id="editor" name="editor" /> <br/>
+    Volume/Number: <br/>
+    <input type="text" id="volume" name="volume" /> <br/>
+    Series: <br/>
+    <input type="text" id="series" name="series" /> <br/>
+    Pages: <br/>
+    <input type="text" id="pages" name="pages" pattern="[0-9]*(--[0-9]*)?" /> <br/>
+    Address: <br/>
+    <input type="text" id="address" name="address" /> <br/>
+    Month: <br/>
+    <input type="text" id="month" name="month" /> <br/>
+    Organization: <br/>
+    <input type="text" id="organization" name="organization" /> <br/>
+    Publisher: <br/>
+    <input type="text" id="publisher" name="publisher" /> <br/>
+    Note: <br/>
+    <input type="text" id="note" name="note" /> <br/>
+    Key: <br/>
+    <input type="text" id="key" name="key" /> <br/>
+    <input type="submit" id="submitButton" value="Add"/> *Required
+</form>
