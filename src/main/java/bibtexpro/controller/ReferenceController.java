@@ -31,7 +31,7 @@ public class ReferenceController {
         ReferenceValidator referenceValidator = new ReferenceValidator();
         if (referenceValidator.validate(newRef)) {
             referenceRepository.save(newRef);
-            return "index";
+            return "redirect:/list";
         } else {
             if(allRequestParams.containsKey("type")){
                 String type = allRequestParams.get("type");
@@ -42,10 +42,15 @@ public class ReferenceController {
                 }
                 model.addAttribute(type, params);
             }
-            return "index";
+            return "addReferenceForm";
         }
     }
 
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public String showForm(){
+        return "addReferenceForm";
+    }
+    
     @RequestMapping(value = "list/{id}", method = RequestMethod.DELETE)
     public String deleteReference(@PathVariable String id) {
         referenceRepository.delete(id);

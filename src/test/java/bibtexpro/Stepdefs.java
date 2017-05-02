@@ -32,7 +32,7 @@ public class Stepdefs {
     }
 
     WebDriver driver = new HtmlUnitDriver(true);
-    String baseUrl = "http://localhost:8080";
+    String baseUrl = "http://localhost:8080/";
     WebDriverWait wait = new WebDriverWait(driver, 1);
 
     @Before
@@ -47,8 +47,8 @@ public class Stepdefs {
         }
     }
 
-    private void getFrontPage() {
-        driver.get(baseUrl + "/");
+    private void getAddReferenceForm() {
+        driver.get(baseUrl + "/add");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("referenceType")));
     }
 
@@ -61,7 +61,7 @@ public class Stepdefs {
     }
 
     private void getBibTexFile() throws Throwable {
-        getFrontPage();
+        getAddReferenceForm();
         selectElementById("bibtexLink").click();
     }
 
@@ -105,7 +105,7 @@ public class Stepdefs {
     
     @Given("^I have a form for adding an? (.+) available$")
     public void i_have_a_form_for_adding_a_reference_available(String type) throws Throwable{
-        getFrontPage();
+        getAddReferenceForm();
         selectReferenceType(type);       
     }
     
@@ -117,7 +117,7 @@ public class Stepdefs {
     
     @Given("^the index page is selected$")
     public void the_index_page_is_selected() throws Throwable{
-        getFrontPage();
+        getAddReferenceForm();
     }
     
     @Given("^an? (.+) reference exists in the database with the following attributes: (.*)")

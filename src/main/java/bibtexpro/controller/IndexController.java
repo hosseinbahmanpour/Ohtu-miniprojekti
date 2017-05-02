@@ -12,6 +12,6 @@ public class IndexController {
     @RequestMapping("/")
     public String index(Model model) {
         model.addAttribute("reference", null);
-        return "index";
+        return "redirect:/list";
     }
 }
