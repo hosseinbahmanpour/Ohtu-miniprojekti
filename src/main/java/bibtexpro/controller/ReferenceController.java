@@ -71,7 +71,15 @@ public class ReferenceController {
     
     @RequestMapping(value = "list/{id}", method = RequestMethod.DELETE)
     public String deleteReference(@PathVariable String id) {
-        referenceRepository.delete(id);
+        Reference ref = referenceRepository.findByRefId(id);
+        if(ref == null){
+            errors = new ArrayList<>();
+            errors.add("Removal failed: Could not find reference with id "+id+".");
+        } else {
+            successes = new ArrayList<>();
+            successes.add("Successfully removed reference "+id+".");
+            referenceRepository.delete(id);
+        }
         return "redirect:/list";
     }
 
