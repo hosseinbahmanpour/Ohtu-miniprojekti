@@ -1,9 +1,11 @@
 package bibtexpro.config;
 
-
 import com.github.fakemongo.Fongo;
 import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
+import com.mongodb.MongoCredential;
+import com.mongodb.ServerAddress;
+import static java.util.Collections.singletonList;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,11 +38,19 @@ public class SpringMongoConfiguration extends AbstractMongoConfiguration {
     @Override
     @Bean
     public Mongo mongo() throws Exception {
-        if ("production".equals(profileActive)) {
-            return new MongoClient(mongoHost + ":" + mongoPort);
-        }
-        
+        if (System.getenv("DATABASE_NAME") != null) {
+            System.out.println("Using Heroku variables");
+            String database = System.getenv("DATABASE_NAME");
+            String host = System.getenv("MONGOHOST");
+            String pass = System.getenv("MONGOPASS");
+            String port = System.getenv("MONGOPORT");
+            String user = System.getenv("MONGOUSER");
 
+            return new MongoClient(singletonList(new ServerAddress(host + ":" + port)),
+                    singletonList(MongoCredential.createCredential(user, database, pass.toCharArray())));
+        }
+
+        System.out.println("Using Fongo as the DB backend");
         return new Fongo(getDatabaseName()).getMongo();
     }
 
