@@ -66,13 +66,17 @@ public class Stepdefs {
     }
 
     private void selectReferenceType(String type) throws Throwable {
-        By typeOption = By.id(type.toLowerCase() + "Option");
+        By typeOption = By.id(type + "Option");
         driver.findElement(typeOption).click();
-        wait.until(ExpectedConditions.attributeContains(By.id("type"), "value", type));
+        //wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(type+"Form")));
     }
 
     private WebElement selectElementById(String id) throws Throwable {
         return driver.findElement(By.id(id));
+    }
+    
+    private WebElement selectNestedElementByIds(String out, String in) throws Throwable {
+        return driver.findElement(By.id(out)).findElement(By.id(in));
     }
 
     private boolean contains(String content) {
@@ -102,13 +106,13 @@ public class Stepdefs {
     @Given("^I have a form for adding an? (.+) available$")
     public void i_have_a_form_for_adding_a_reference_available(String type) throws Throwable{
         getFrontPage();
-        selectReferenceType(capitalize(type));       
+        selectReferenceType(type);       
     }
     
     @Given("^an? (.+) reference with the following attributes has been added: (.*)$")
     public void a_reference_has_been_added(String type, List<String> attributes) throws Throwable{
         i_have_a_form_for_adding_a_reference_available(type);
-        i_add_a_reference_with_the_following_attributes(attributes);
+        i_add_a_reference_with_the_following_attributes(type, attributes);
     }
     
     @Given("^the index page is selected$")
@@ -119,7 +123,7 @@ public class Stepdefs {
     @Given("^an? (.+) reference exists in the database with the following attributes: (.*)")
     public void a_reference_exists_in_the_database_with_the_following_attributes(String type, List<String> attributes) throws Throwable{
         i_have_a_form_for_adding_a_reference_available(type);
-        i_add_a_reference_with_the_following_attributes(attributes);
+        i_add_a_reference_with_the_following_attributes(type, attributes);
     }
     
     @When("^I remove an? .+ reference with the following attributes: (.*)$")
@@ -137,18 +141,18 @@ public class Stepdefs {
     
     @When("an? (.+) reference is selected$")
     public void a_reference_is_selected(String type) throws Throwable{
-        selectReferenceType(capitalize(type));
+        selectReferenceType(type);
     }
     
-    @When("^I add an? .+ reference with the following attributes: (.*)$")
-    public void i_add_a_reference_with_the_following_attributes(List<String> attributes) throws Throwable{
+    @When("^I add an? (.+) reference with the following attributes: (.*)$")
+    public void i_add_a_reference_with_the_following_attributes(String type, List<String> attributes) throws Throwable{
         for(String attribute : attributes){
             String[] split = attribute.split(": ");
             String key = split[0];
             String value = split[1];
-            selectElementById(key).sendKeys(value);
+            selectNestedElementByIds(type.toLowerCase()+"Form", key).sendKeys(value);
         }
-        selectElementById("submitButton").click();
+        selectNestedElementByIds(type.toLowerCase()+"Form", "submitButton").click();
     }
 
     @When("^I export the BibTeX file$")
@@ -231,5 +235,5 @@ public class Stepdefs {
         driver.close();
         driver.quit();
     }
-
+    
 }

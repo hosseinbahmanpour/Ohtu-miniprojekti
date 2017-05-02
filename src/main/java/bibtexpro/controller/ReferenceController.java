@@ -5,6 +5,7 @@ import bibtexpro.validation.ReferenceValidator;
 import bibtexpro.repository.ReferenceRepository;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -24,16 +25,24 @@ public class ReferenceController {
     @Autowired
     private ReferenceRepository referenceRepository;
 
-    @RequestMapping(value = "/addreference", method = RequestMethod.POST)
-    public String createNewReference(@RequestParam Map<String, String> allRequestParams) {
-
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    public String createNewReference(@RequestParam Map<String, String> allRequestParams, Model model) {
         Reference newRef = new Reference(allRequestParams);
         ReferenceValidator referenceValidator = new ReferenceValidator();
         if (referenceValidator.validate(newRef)) {
             referenceRepository.save(newRef);
-            return "redirect:/";
+            return "index";
         } else {
-            return "redirect:/error";
+            if(allRequestParams.containsKey("type")){
+                String type = allRequestParams.get("type");
+                allRequestParams.remove("type");
+                Map<String,String> params = new HashMap<>();
+                for(Map.Entry<String,String> e : allRequestParams.entrySet()){
+                    params.put(e.getKey(), e.getValue());
+                }
+                model.addAttribute(type, params);
+            }
+            return "index";
         }
     }
 
@@ -41,21 +50,6 @@ public class ReferenceController {
     public String deleteReference(@PathVariable String id) {
         referenceRepository.delete(id);
         return "redirect:/list";
-    }
-
-    @RequestMapping(value = "/addbook", method = RequestMethod.GET)
-    public String addBook(Model model) {
-        return "addbook";
-    }
-
-    @RequestMapping(value = "/addarticle", method = RequestMethod.GET)
-    public String addArticle(Model model) {
-        return "addarticle";
-    }
-
-    @RequestMapping(value = "/addinproceedings", method = RequestMethod.GET)
-    public String addInproceedings(Model model) {
-        return "addinproceedings";
     }
 
     @RequestMapping("/list")
