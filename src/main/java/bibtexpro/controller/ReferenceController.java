@@ -57,7 +57,6 @@ public class ReferenceController {
                 }
                 model.addAttribute(type, params);
             }
-            
             model.addAttribute("errors", errors);
             successes = null;
             errors = null;
