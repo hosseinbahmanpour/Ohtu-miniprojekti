@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+    <title>BibTeX PRO</title>
+</head>
+<body>
+    <h1>Welcome to BibTeXPro</h1>
+    
+	<div th:replace="fragments/msg/messages :: messages"/>
+    
+    <a th:href="@{/bibtex}" id="bibtexLink" >Download BibTex-file</a><br/>
+    <a th:href="@{/list}" id="listLink" >View entries as list</a><br/>
+    <br/>
+    
+    <select id="referenceType" onchange="formSwap()" >
+        <option id="articleOption" value="article" th:attr="selected=${Article != null}? 'true' : 'false'">
+            Article
+        </option>
+        <option id="bookOption" value="book" th:attr="selected=${Book != null}? 'true' : 'false'">
+            Book
+        </option>
+        <option id="inproceedingsOption" value="inproceedings" th:attr="selected=${Inproceedings != null}? 'true' : 'false'">
+            Inproceedings
+        </option>
+    </select>
+    
+    <div id="forms">
+        <div id="articleForm">
+            <div th:replace = "fragments/addingForms/article :: form"/>
+        </div>
+        <div id="bookForm">
+            <div th:replace = "fragments/addingForms/book :: form"/>
+        </div>
+        <div id="inproceedingsForm">
+            <div th:replace = "fragments/addingForms/inproceedings :: form"/>
+        </div>
+    </div>
+
+</body>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    window.onload = formSwap();
+    function formSwap() {
+        var forms = document.getElementById("forms").children;
+        for (i = 0; i < forms.length; i++) {
+            forms[i].hidden = "hidden";
+        }
+        var selectedValue = document.getElementById("referenceType").value;
+        var selectedForm = document.getElementById(selectedValue+"Form");
+        selectedForm.hidden = "";
+    }
+    /*]]>*/
+</script>
+</html>

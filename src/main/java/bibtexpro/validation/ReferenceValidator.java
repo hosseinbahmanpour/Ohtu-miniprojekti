@@ -6,8 +6,8 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Arrays;
-import bibtexpro.validation.Field;
 
 public class ReferenceValidator {
     
@@ -24,11 +24,14 @@ public class ReferenceValidator {
         validators.put("Inproceedings", inproceedingsValidator);
     }
     
-    public boolean validate(Reference ref){
+    public List<String> validate(Reference ref){
+        
         String type = ref.getType();
-        if(!validators.containsKey(type)) return false;
-        String refId = ref.getRefId();
-        if(refId.trim().isEmpty()) return false;
+        if(!validators.containsKey(type)){
+            List<String> errors = new ArrayList<>();
+            errors.add("Invalid type: "+type);
+            return errors;
+        }
         
         return validators.get(type).validate(ref);
     }

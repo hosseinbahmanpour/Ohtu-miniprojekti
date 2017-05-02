@@ -1,0 +1,35 @@
+
+<form th:fragment="form" action="#" th:action="@{/}" th:object="${test}" method="post">
+    <input type="hidden" id="type" value="Inproceedings" name="type"/>
+    * Id: <br/>
+    <input th:replace="fragments/addingForms/input :: required(${Inproceedings},'refId')" /> <br/>
+    * Author: <br/>
+    <input th:replace="fragments/addingForms/input :: required(${Inproceedings},'author')" /> <br/>
+    * Title: <br/>
+    <input th:replace="fragments/addingForms/input :: required(${Inproceedings},'title')" /> <br/>
+    * Booktitle: <br/>
+    <input th:replace="fragments/addingForms/input :: required(${Inproceedings},'booktitle')" /> <br/>
+    * Year: <br/>
+    <input th:replace="fragments/addingForms/input :: requiredNum(${Inproceedings},'year')" /> <br/>
+    Editor: <br/>
+    <input th:replace="fragments/addingForms/input :: optional(${Inproceedings},'editor')" /> <br/>
+    Volume/Number: <br/>
+    <input th:replace="fragments/addingForms/input :: optional(${Inproceedings},'volume')" /> <br/>
+    Series: <br/>
+    <input th:replace="fragments/addingForms/input :: optional(${Inproceedings},'series')" /> <br/>
+    Pages: <br/>
+    <input th:replace="fragments/addingForms/input :: optionalRange(${Inproceedings},'pages')" /> <br/>
+    Address: <br/>
+    <input th:replace="fragments/addingForms/input :: optional(${Inproceedings},'address')" /> <br/>
+    Month: <br/>
+    <input th:replace="fragments/addingForms/input :: optional(${Inproceedings},'month')" /> <br/>
+    Organization: <br/>
+    <input th:replace="fragments/addingForms/input :: optional(${Inproceedings},'organization')" /> <br/>
+    Publisher: <br/>
+    <input th:replace="fragments/addingForms/input :: optional(${Inproceedings},'publisher')" /> <br/>
+    Note: <br/>
+    <input th:replace="fragments/addingForms/input :: optional(${Inproceedings},'note')" /> <br/>
+    Key: <br/>
+    <input th:replace="fragments/addingForms/input :: optional(${Inproceedings},'key')" /> <br/>
+    <input type="submit" id="submitButton" value="Add"/> *Required
+</form>

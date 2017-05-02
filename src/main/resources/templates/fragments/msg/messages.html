@@ -1,0 +1,11 @@
+
+<div th:fragment="successes" th:if="${successes} != null" th:each="s : ${successes}" class="alert alert-success">
+    <div th:text="${s}" />
+</div>
+<div th:fragment="errors" th:if="${errors} != null" th:each="e : ${errors}" class="alert alert-danger">
+    <div th:text="${e}" />
+</div>
+<div th:fragment="messages">
+	<div th:replace="fragments/msg/messages :: successes"/>
+	<div th:replace="fragments/msg/messages :: errors"/>
+</div>

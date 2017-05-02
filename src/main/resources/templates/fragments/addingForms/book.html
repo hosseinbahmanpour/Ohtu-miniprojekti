@@ -1,0 +1,29 @@
+
+<form th:fragment="form" action="#" th:action="@{/}" th:object="${test}" method="post">
+    <input type="hidden" id="type" value="Book" name="type"/>
+    * Id: <br/>
+    <input th:replace="fragments/addingForms/input :: required(${Book},'refId')" /> <br/>
+    * Author/Editor: <br/>
+    <input th:replace="fragments/addingForms/input :: required(${Book},'author')" /> <br/>
+    * Title: <br/>
+    <input th:replace="fragments/addingForms/input :: required(${Book},'title')" /> <br/>
+    * Publisher: <br/>
+    <input th:replace="fragments/addingForms/input :: required(${Book},'publisher')" /> <br/>
+    * Year: <br/>
+    <input th:replace="fragments/addingForms/input :: requiredNum(${Book},'year')" /> <br/>
+    Volume/Number: <br/>
+    <input th:replace="fragments/addingForms/input :: optional(${Book},'volume')" /> <br/>
+    Series: <br/>
+    <input th:replace="fragments/addingForms/input :: optional(${Book},'series')" /> <br/>
+    Address: <br/>
+    <input th:replace="fragments/addingForms/input :: optional(${Book},'address')" /> <br/>
+    Edition: <br/>
+    <input th:replace="fragments/addingForms/input :: optional(${Book},'edition')" /> <br/>
+    Month: <br/>
+    <input th:replace="fragments/addingForms/input :: optional(${Book},'month')" /> <br/>
+    Note: <br/>
+    <input th:replace="fragments/addingForms/input :: optional(${Book},'note')" /> <br/>
+    Key: <br/>
+    <input th:replace="fragments/addingForms/input :: optional(${Book},'key')" /> <br/>
+    <input type="submit" id="submitButton" value="Add"/> *Required
+</form>

@@ -1,0 +1,8 @@
+
+<input th:fragment="required(type,id)" type="text" th:id="${id}" th:name="${id}" required="" th:value="${type} ? ${type.get(id)}" />
+
+<input th:fragment="requiredNum(type,id)" type="text" th:id="${id}" th:name="${id}" pattern="[0-9]*" required="" th:value="${type} ? ${type.get(id)}" />
+
+<input th:fragment="optional(type,id)" type="text" th:id="${id}" th:name="${id}" th:value="${type} ? ${type.get(id)}" />
+
+<input th:fragment="optionalRange(type,id)" type="text" th:id="${id}" th:name="${id}" pattern="[0-9]*(--[0-9]*)?" th:value="${type} ? ${type.get(id)}" />

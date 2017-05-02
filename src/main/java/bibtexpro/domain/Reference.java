@@ -15,6 +15,13 @@ public class Reference {
     public Reference() {}
 
     public Reference(Map<String, String> inputFields) {
+        if(!inputFields.containsKey("type")){
+            inputFields.put("type", "");
+        }
+        if(!inputFields.containsKey("refId")){
+            inputFields.put("refId", "");
+        }
+        
         this.type = inputFields.get("type");
         inputFields.remove("type");
         this.refId = inputFields.get("refId");
@@ -28,6 +35,9 @@ public class Reference {
                 attributes.put(key,val);
             }
         }
+        
+        inputFields.put("type", type);
+        inputFields.put("refId", refId);
     }
 
     public String getRefId() {

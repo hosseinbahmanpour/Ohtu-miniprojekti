@@ -41,13 +41,13 @@ public class ReferenceTest {
     @Test
     public void testConstructorRemovesTypeAndIdsFromMap() {
         assertNull(ref.getAttributes().get("type"));
-        assertNull(ref.getAttributes().get("id"));
+        assertNull(ref.getAttributes().get("refId"));
     }
 
     @Test
     public void testConstructorDontRemoveAttributes() {
         for (String key : map.keySet()) {
-            if (key == "type" || key == "id") {
+            if (key == "type" || key == "refId") {
                 continue;
             }
             assertNotNull(ref.getAttributes().get(key));
