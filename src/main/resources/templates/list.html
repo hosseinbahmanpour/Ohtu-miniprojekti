@@ -5,6 +5,14 @@
     <title>BibTeX PRO</title>
 </head>
 <body>
+    <h1>Welcome to BibTeXPro</h1>
+    
+	<div th:replace="fragments/msg/messages :: messages"/>
+    
+    <a th:href="@{/bibtex}" id="bibtexLink" >Download BibTex-file</a><br/>
+<!--    <a th:href="@{/list}" id="listLink" >View entries as list</a><br/>-->
+    <a th:href="@{/add}" id="addLink" >Add new reference</a><br/>
+    <br/>
 
 	<style type="text/css">
 .tg  {border-collapse:collapse;border-spacing:0;}
@@ -13,9 +21,9 @@
 .tg .tg-yw4l{vertical-align:top}
 	</style>
 
-	<form th:action="@{/add}" style="padding-bottom: 10px">
-		<input type="submit" value="New reference" />
-	</form>
+<!--	<form th:action="@{/add}" style="padding-bottom: 10px">
+		<input type="submit" value="Add new reference" />
+	</form>-->
 		
 	<div th:replace="fragments/msg/messages :: messages"/>
         
