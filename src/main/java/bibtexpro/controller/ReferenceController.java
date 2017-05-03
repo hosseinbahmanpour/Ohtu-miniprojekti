@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class ReferenceController {
@@ -28,31 +27,44 @@ public class ReferenceController {
     private List<String> successes;
     private List<String> errors;
 
+    private void flashError(String error) {
+        if (errors == null) {
+            errors = new ArrayList<>();
+        }
+        errors.add(error);
+    }
+
+    private void flashMessage(String message) {
+        if (successes == null) {
+            successes = new ArrayList<>();
+        }
+        
+        successes.add(message);
+    }
+
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public String createNewReference(@RequestParam Map<String, String> allRequestParams, Model model) {
         Reference newRef = new Reference(allRequestParams);
         String refId = newRef.getRefId();
-        
-        if(referenceRepository.findByRefId(refId) != null){
-            errors = new ArrayList<>();
-            errors.add("Reference with id "+refId+" already exists in database.");
+
+        if (referenceRepository.findByRefId(refId) != null) {
+            flashError("Reference with id " + refId + " already exists in database.");
         } else {
-            ReferenceValidator referenceValidator = new ReferenceValidator();    
+            ReferenceValidator referenceValidator = new ReferenceValidator();
             errors = referenceValidator.validate(newRef);
         }
-        
+
         if (errors.isEmpty()) {
             referenceRepository.save(newRef);
-            successes = new ArrayList<>();
-            successes.add("Reference "+refId+" successfully added!");
+            flashMessage("Reference " + refId + " successfully added!");
             errors = null;
             return "redirect:/list";
         } else {
-            if(allRequestParams.containsKey("type")){
+            if (allRequestParams.containsKey("type")) {
                 String type = allRequestParams.get("type");
                 allRequestParams.remove("type");
-                Map<String,String> params = new HashMap<>();
-                for(Map.Entry<String,String> e : allRequestParams.entrySet()){
+                Map<String, String> params = new HashMap<>();
+                for (Map.Entry<String, String> e : allRequestParams.entrySet()) {
                     params.put(e.getKey(), e.getValue());
                 }
                 model.addAttribute(type, params);
@@ -65,19 +77,18 @@ public class ReferenceController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String showForm(){
+    public String showForm() {
         return "addReferenceForm";
     }
-    
+
     @RequestMapping(value = "list/{id}", method = RequestMethod.DELETE)
     public String deleteReference(@PathVariable String id) {
         Reference ref = referenceRepository.findByRefId(id);
-        if(ref == null){
+        if (ref == null) {
             errors = new ArrayList<>();
-            errors.add("Removal failed: Could not find reference with id "+id+".");
+            flashError("Removal failed: Could not find reference with id " + id + ".");
         } else {
-            successes = new ArrayList<>();
-            successes.add("Successfully removed reference "+id+".");
+            flashMessage("Successfully removed reference " + id + ".");
             referenceRepository.delete(id);
         }
         return "redirect:/list";
@@ -95,8 +106,16 @@ public class ReferenceController {
 
     @RequestMapping(value = "/list/{id}", method = RequestMethod.GET)
     public String show(Model model, @PathVariable String id) {
-        model.addAttribute("reference", referenceRepository.findByRefId(id));
-        //show a single reference with all info, search by id.
+        Reference ref = referenceRepository.findByRefId(id);
+        errors = new ArrayList<>();
+        if (ref == null) {
+            flashError("Could not find reference with id " + id + ".");
+            model.addAttribute("errors", errors);
+            return "redirect:/list";
+        }
+
+        model.addAttribute("reference", ref);
+        errors = null;
         return "referenceView";
     }
 
