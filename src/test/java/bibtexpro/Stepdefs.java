@@ -237,7 +237,6 @@ public class Stepdefs {
     @Then("^I get notification from a succesful removal: (.*)$")
     public void i_get_notification_from_a_succesful_removal(List<String> attributes) throws Throwable {
         assertTrue(contains("Successfully removed reference " + findFromAttributes("refId", attributes)));
-        driver.findElement(By.id("view-west")).sendKeys("1234");
     }
 
     @After
