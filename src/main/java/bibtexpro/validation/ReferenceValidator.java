@@ -2,12 +2,10 @@
 package bibtexpro.validation;
 
 import bibtexpro.domain.Reference;
-import java.util.Collection;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ReferenceValidator {
     

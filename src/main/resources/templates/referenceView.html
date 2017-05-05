@@ -1,24 +1,46 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>BibTeX PRO</title>
-</head>
-<body>
-    
-    <table>
-        <tr>
-            <td>ID</td>
-            <td th:text = "${reference.refId}">id</td>
-        </tr>
-        <tr>
-            <td>Type</td>
-            <td th:text = "${reference.type}">Type</td>
-        </tr>
-        <tr th:each="referenceField: ${reference.attributes}">
-            <td th:text="${referenceField.key}">empty</td>
-            <td th:text="${referenceField.value}">empty</td>
-        </tr>
-    </table>
+    <head>
+        <title>BibTeX PRO</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
 
-</body>
+    </head>
+    <body>
+        <style type="text/css">
+            body { margin-left: 50px; }
+            .tg  {border-collapse:collapse;border-spacing:0;}
+            .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+            .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+            .tg .tg-yw4l{vertical-align:top}
+        </style>
+
+        <h2 th:inline="text">Reference: [[${reference.type}]] - [[${reference.refId}]]</h2>
+
+
+        <a th:href="@{/list}" id="listLink" >Back to reference listing</a><br/>
+        <a th:href="@{/add}" id="addLink" >Add new reference</a><br/>
+        <a th:href="@{/bibtex}" id="bibtexLink" >Download BibTex-file</a><br/>
+        <br/>
+
+        <div th:replace="fragments/msg/messages :: messages"/>
+
+        <table class="tg">
+            <tr>
+                <td class="tg-yw4l" th:each="referenceField: ${reference.attributes}">
+                    <span th:text="${referenceField.key}">empty</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="tg-yw4l" th:each="referenceField: ${reference.attributes}">
+                    <span th:text="${referenceField.value}">empty</span>
+                </td>
+            </tr>
+        </table>
+
+        <form th:action="@{/list/{refId}(refId=${reference.refId})}" th:method="DELETE">
+            <input type="submit" value="Delete" th:id="${'remove-' + reference.refId}"/>
+        </form>
+
+
+    </body>
 </html>

@@ -1,51 +1,54 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
-    <title>BibTeX PRO</title>
-</head>
-<body>
-    <h1>Welcome to BibTeXPro</h1>
-    
-    
-<!--    <a th:href="@{/list}" id="listLink" >View entries as list</a><br/>-->
-    <a th:href="@{/add}" id="addLink" >Add new reference</a><br/>
-    <a th:href="@{/bibtex}" id="bibtexLink" >Download BibTex-file</a><br/>
-    <br/>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+        <title>BibTeX PRO</title>
+    </head>
+    <body>
+        <h1>Welcome to BibTeXPro</h1>
 
-	<style type="text/css">
-.tg  {border-collapse:collapse;border-spacing:0;}
-.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-.tg .tg-yw4l{vertical-align:top}
-	</style>
 
-<!--	<form th:action="@{/add}" style="padding-bottom: 10px">
-		<input type="submit" value="Add new reference" />
-	</form>-->
-		
-	<div th:replace="fragments/msg/messages :: messages"/>
-        
-    	<table class="tg">
-        	<tr>
-         	   	<th class="tg-yw4l">Type</th>
-         	 	<th class="tg-yw4l">Id</th>
-         		<th class="tg-yw4l">Author</th>
-			<th class="tg-yw4l">Title</th>
-			<th class="tg-yw4l">Year</th>
-       	 	</tr>
-        	<tr th:each="reference : ${references}">
-       			<td class="tg-yw4l" th:text="${reference.type}">Type</td>
-            		<td class="tg-yw4l"><a th:href="@{/list/{refId}(refId=${reference.refId})}" th:id="${'view-' + reference.refId}" th:text="${reference.refId}">view single</a></td>
-            		<td class="tg-yw4l" th:text="${reference.attributes['author']}">Author</td>
-			<td class="tg-yw4l" th:text="${reference.attributes['title']}">Title</td>
-			<td class="tg-yw4l" th:text="${reference.attributes['year']}">Year</td>
-			<td>
-                        	<form th:action="@{/list/{refId}(refId=${reference.refId})}" th:method="DELETE">
-                           		<input type="submit" value="Delete" th:id="${'remove-' + reference.refId}"/>
-                        	</form>
-                    	</td>
-        	</tr>
-    	</table>
-</body>
+        <!--    <a th:href="@{/list}" id="listLink" >View entries as list</a><br/>-->
+        <a th:href="@{/add}" id="addLink" >Add new reference</a><br/>
+        <a th:href="@{/bibtex}" id="bibtexLink" >Download BibTex-file</a><br/>
+        <br/>
+
+        <style type="text/css">
+            body { margin-left: 50px; }
+            .tg  {border-collapse:collapse;border-spacing:0;}
+            .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+            .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+            .tg .tg-yw4l{vertical-align:top}
+        </style>
+
+        <!--	<form th:action="@{/add}" style="padding-bottom: 10px">
+                        <input type="submit" value="Add new reference" />
+                </form>-->
+
+        <div th:replace="fragments/msg/messages :: messages"/>
+
+        <table th:if="${not #lists.isEmpty(references)}" class="tg">
+            <tr>
+                <th class="tg-yw4l">Type</th>
+                <th class="tg-yw4l">Id</th>
+                <th class="tg-yw4l">Author</th>
+                <th class="tg-yw4l">Title</th>
+                <th class="tg-yw4l">Year</th>
+            </tr>
+            <tr th:each="reference : ${references}">
+                <td class="tg-yw4l" th:text="${reference.type}">Type</td>
+                <td class="tg-yw4l"><a th:href="@{/list/{refId}(refId=${reference.refId})}" th:id="${'view-' + reference.refId}" th:text="${reference.refId}">view single</a></td>
+                <td class="tg-yw4l" th:text="${reference.attributes['author']}">Author</td>
+                <td class="tg-yw4l" th:text="${reference.attributes['title']}">Title</td>
+                <td class="tg-yw4l" th:text="${reference.attributes['year']}">Year</td>
+                <td>
+                    <form th:action="@{/list/{refId}(refId=${reference.refId})}" th:method="DELETE">
+                        <input type="submit" value="Delete" th:id="${'remove-' + reference.refId}"/>
+                    </form>
+                </td>
+            </tr>
+        </table>
+        <h3 th:if="${#lists.isEmpty(references)}">No references!</h3>
+
+    </body>
 </html>

@@ -6,7 +6,6 @@ import bibtexpro.repository.ReferenceRepository;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -38,7 +37,7 @@ public class ReferenceController {
         if (successes == null) {
             successes = new ArrayList<>();
         }
-        
+
         successes.add(message);
     }
 
@@ -63,11 +62,7 @@ public class ReferenceController {
             if (allRequestParams.containsKey("type")) {
                 String type = allRequestParams.get("type");
                 allRequestParams.remove("type");
-                Map<String, String> params = new HashMap<>();
-                for (Map.Entry<String, String> e : allRequestParams.entrySet()) {
-                    params.put(e.getKey(), e.getValue());
-                }
-                model.addAttribute(type, params);
+                model.addAttribute(type, allRequestParams);
             }
             model.addAttribute("errors", errors);
             successes = null;
