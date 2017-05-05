@@ -115,8 +115,8 @@ public class Stepdefs {
         i_add_a_reference_with_the_following_attributes(type, attributes);
     }
     
-    @Given("^the index page is selected$")
-    public void the_index_page_is_selected() throws Throwable{
+    @Given("^the add page is selected$")
+    public void the_add_page_is_selected() throws Throwable{
         getAddReferenceForm();
     }
     
@@ -226,6 +226,16 @@ public class Stepdefs {
             String field = att.split(": ")[1];
             assertTrue(contains(field));
         }
+    }
+    
+    @Then("^I get notification from a succesful addition: (.*)$")
+    public void i_get_notification_from_a_succesful_addition(List<String> attributes) throws Throwable {
+        assertTrue(contains("Reference "+ attributes.get(0).split(": ")[1]+ " successfully added"));
+    }
+
+    @Then("^I get notification from a succesful removal: (.*)$")
+    public void i_get_notification_from_a_succesful_removal(List<String> attributes) throws Throwable {
+        assertTrue(contains("Successfully removed reference " + attributes.get(0).split(": ")[1]));
     }
 
     @After
