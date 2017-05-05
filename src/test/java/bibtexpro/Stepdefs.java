@@ -6,6 +6,7 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import java.sql.Driver;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -230,12 +231,13 @@ public class Stepdefs {
     
     @Then("^I get notification from a succesful addition: (.*)$")
     public void i_get_notification_from_a_succesful_addition(List<String> attributes) throws Throwable {
-        assertTrue(contains("Reference "+ attributes.get(0).split(": ")[1]+ " successfully added"));
+        assertTrue(contains("Reference "+ findFromAttributes("refId", attributes)+ " successfully added"));
     }
 
     @Then("^I get notification from a succesful removal: (.*)$")
     public void i_get_notification_from_a_succesful_removal(List<String> attributes) throws Throwable {
-        assertTrue(contains("Successfully removed reference " + attributes.get(0).split(": ")[1]));
+        assertTrue(contains("Successfully removed reference " + findFromAttributes("refId", attributes)));
+        driver.findElement(By.id("view-west")).sendKeys("1234");
     }
 
     @After
