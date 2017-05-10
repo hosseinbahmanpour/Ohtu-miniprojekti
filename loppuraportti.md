@@ -40,7 +40,7 @@ Kaikki ryhmän jäsenet ovat olleet innokkaita ja halukkaita edistämään proje
 Projektin tuotantoon vieminen oli käytännössä yhden henkilön varassa koko ajan. Ensi kerralla kaikilla pitäisi olla tarvittavat oikeudet ja osaaminen tätä varten. Tietyt asiat ovat saattaneet olla liikaa tiettyjen ihmisten harteilla ja joihinkin asioihin liittyen monet tiedot ovat olleet liikaa tiettyjen ihmisten pääkoppien sisällä. Jos nämä ihmiset olisivat esimerkiksi sairastuneet, olisi mahdollisesti projektin jatkaminen valmistumiseen asti ollut
 tietyissä askelissa todella hankalaa. 
 
-  Positiivista on, että asiat ovat tulleet tehtyä, tosin parantamisen varaa voisi olla ainakin aikataulutuksessa. Nyt asiat valmistuivat usein hieman liian viimetingassa.
+  Positiivista on, että asiat ovat tulleet tehtyä, tosin parantamisen varaa voisi olla ainakin aikataulutuksessa. Nyt asiat valmistuivat usein hieman liian viime tingassa.
 Olemme tyytyväisiä projektin lopputulokseen ja sen parissa työskentely on ollut hauskaa.
 
 ## Mitä asioita opimme, mitä asioita olisimme halunneet oppia ja mikä tuntui turhalta?
