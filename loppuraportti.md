@@ -10,7 +10,7 @@
 
 ## Sprint 1
 
-Ongelmia Trellon käytössä sekä Burndown-käyrän tuottamisessa. Ensimmäisen viikon työmäärä suhteessa käytettäviin tunteihin oli liian suuri. Projektin käynnistäminen ja alun tuottamiseen vaaditut toimenpiteet veivät yllättävän paljon aikaa. Ensimmäisellä viikolla olisi ollut mielekästä saada hieman ohjausta erilaisten projektityökalujen suhteen sekä niiden vaatimiin asennustoimenpiteisiin.
+Ongelmia Trellon käytössä sekä Burndown-käyrän tuottamisessa, myös Gradle ja Spring piti konffata kahteen otteeseen. Ensimmäisen viikon työmäärä suhteessa käytettäviin tunteihin oli liian suuri. Projektin käynnistäminen ja alun tuottamiseen vaaditut toimenpiteet veivät yllättävän paljon aikaa. Ensimmäisellä viikolla olisi ollut mielekästä saada hieman ohjausta erilaisten projektityökalujen suhteen sekä niiden vaatimiin asennustoimenpiteisiin.
   
   Yleisesti projekti saatiin alkuun hyvin, mutta esimerkiksi arkkitehtuuriin liittyvät
 ratkaisut saatettiin tehdä hieman ennenaikaisesti. 
