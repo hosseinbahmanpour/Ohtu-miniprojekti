@@ -7,3 +7,5 @@ Pieni ryhmätyö
 [Trello](https://trello.com/b/1gV3Tmev/lohtu)
 
 [BurnDown](https://BurndownForTrello.com/share/grucoaw72r)
+
+[Loppuraportti](loppuraportti.md)
